@@ -1,0 +1,6 @@
+#fields	name	arg	addl
+net_weird	0	1
+conn_weird	0	2
+flow_weird	0	3
+SumStats::cluster_send_result	1	-1
+SumStats::cluster_get_result	1	-1

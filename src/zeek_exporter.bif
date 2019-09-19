@@ -1,0 +1,21 @@
+module Exporter;
+
+# The address that the Prometheus exporter should bind to
+const bind_address: addr;
+
+# The port that the Prometheus exporter should bind to
+const bind_port: port;
+
+## Updates the internal list of functions that we grab some parameters for
+##
+## name: The name of the function
+##
+## arg: The 0-indexed field in the val_list that we'll put in the 'arg' label
+##
+## addl: The 0-indexed field in the val_list that we'll put in the 'addl' label
+##
+function update_arg_functions%(name: string, arg: int, addl: int%): bool
+	%{
+	return val_mgr->GetBool(1);
+	// This is a noop, as it's handled in the plugin hook
+	%}

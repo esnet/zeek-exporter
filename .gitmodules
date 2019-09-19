@@ -1,0 +1,6 @@
+[submodule "zeek-docs"]
+	path = doc/zeek-docs
+	url = https://github.com/zeek/zeek-docs.git
+[submodule "3rdparty/prometheus-cpp"]
+	path = 3rdparty/prometheus-cpp
+	url = https://github.com/jupp0r/prometheus-cpp.git

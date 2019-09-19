@@ -1,0 +1,25 @@
+---
+- targets:
+    - zeek1.example.net:9101
+    - zeek1.example.net:9102
+    - zeek1.example.net:9103
+    - zeek1.example.net:9104
+    - zeek1.example.net:9105
+    - zeek1.example.net:9106
+    - zeek1.example.net:9107
+    - zeek1.example.net:9108
+    - zeek1.example.net:9109
+    - zeek1.example.net:9110
+    - zeek1.example.net:9111
+    - zeek1.example.net:9112
+    - zeek1.example.net:9113
+    - zeek1.example.net:9114
+    - zeek1.example.net:9115
+    - zeek1.example.net:9116
+    - zeek1.example.net:9117
+  labels:
+    job: zeek
+    type: service
+    zeek_cluster: zeek1
+    __metrics_path__: /metrics
+    __scheme__: http
