@@ -12,18 +12,19 @@ Summary
 ~~~~~~~
 Runtime Options
 ###############
-========================================================================== ===============================================================================================================================
-:zeek:id:`Exporter::arg_functions`: :zeek:type:`table` :zeek:attr:`&redef` This is a table, indexed by the function name, of functions that we'll grab additional arguments for, and store them as labels.
-========================================================================== ===============================================================================================================================
+========================================================================== =========================================================================================================
+:zeek:id:`Exporter::arg_functions`: :zeek:type:`table` :zeek:attr:`&redef` This is the list of our functions for which we'll grab the additional arguments and store them as labels.
+========================================================================== =========================================================================================================
 
 Redefinable Options
 ###################
-======================================================================== =====================================================
-:zeek:id:`Exporter::base_port`: :zeek:type:`port` :zeek:attr:`&redef`    For a cluster, we'll dynamically assign port numbers,
-                                                                         beginning with the next one above this.
-:zeek:id:`Exporter::bind_address`: :zeek:type:`addr` :zeek:attr:`&redef` The address that the exporter will bind to.
-:zeek:id:`Exporter::bind_port`: :zeek:type:`port` :zeek:attr:`&redef`    The port that the exporter will bind to
-======================================================================== =====================================================
+=========================================================================== ===========================================================================
+:zeek:id:`Exporter::base_port`: :zeek:type:`port` :zeek:attr:`&redef`       For a cluster, we'll dynamically assign port numbers,
+                                                                            beginning with the next one above this.
+:zeek:id:`Exporter::bind_address`: :zeek:type:`addr` :zeek:attr:`&redef`    The address that the exporter will bind to.
+:zeek:id:`Exporter::bind_port`: :zeek:type:`port` :zeek:attr:`&redef`       The port that the exporter will bind to
+:zeek:id:`Exporter::conf_dat_path`: :zeek:type:`string` :zeek:attr:`&redef` The path to an Input framework file that will be used to set arg_functions.
+=========================================================================== ===========================================================================
 
 Types
 #####
@@ -31,12 +32,6 @@ Types
 :zeek:type:`Exporter::AddlArgs`: :zeek:type:`record`     For this function name, we'll grab an arg and/or addl field, and add them as labels
 :zeek:type:`Exporter::FunctionName`: :zeek:type:`record` The name of the function that we will collect arguments for.
 ======================================================== ===================================================================================
-
-Redefinitions
-#############
-========================================================================== =
-:zeek:id:`Exporter::arg_functions`: :zeek:type:`table` :zeek:attr:`&redef` 
-========================================================================== =
 
 
 Detailed Interface
@@ -48,14 +43,8 @@ Runtime Options
    :Type: :zeek:type:`table` [:zeek:type:`string`] of :zeek:type:`Exporter::AddlArgs`
    :Attributes: :zeek:attr:`&redef`
    :Default: ``{}``
-   :Redefinition: from :doc:`/scripts/ESnet_Zeek_Exporter/scripts/__load__.zeek`
 
-      ``+=``::
-
-         net_weird = (coerce [$arg=0, $addl=1] to record { arg:int; addl:int; }), conn_weird = (coerce [$arg=0, $addl=2] to record { arg:int; addl:int; }), flow_weird = (coerce [$arg=0, $addl=3] to record { arg:int; addl:int; }), SumStats::cluster_get_result = (coerce [$arg=1] to record { arg:int; addl:int; }), SumStats::cluster_send_result = (coerce [$arg=1] to record { arg:int; addl:int; })
-
-
-   This is a table, indexed by the function name, of functions that we'll grab additional arguments for, and store them as labels.
+   This is the list of our functions for which we'll grab the additional arguments and store them as labels.
 
 Redefinable Options
 ###################
@@ -83,6 +72,14 @@ Redefinable Options
    :Default: ``9101/tcp``
 
    The port that the exporter will bind to
+
+.. zeek:id:: Exporter::conf_dat_path
+
+   :Type: :zeek:type:`string`
+   :Attributes: :zeek:attr:`&redef`
+   :Default: ``"$(zeek-config --plugin_dir)/ESnet_Zeek_Exporter/scripts/conf.dat"``
+
+   The path to an Input framework file that will be used to set arg_functions.
 
 Types
 #####

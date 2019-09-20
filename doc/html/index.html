@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ESnet_Zeek_Exporter/scripts/__load__.zeek &mdash; Zeek Prometheus Exporter Plugin source</title>
+  <title>Zeek Prometheus Exporter Plugin source</title>
   
 
   
@@ -49,7 +49,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> Zeek Exporter
+            <a href="index.html#document-index" class="icon icon-home"> Zeek Exporter
           
 
           
@@ -65,13 +65,6 @@
           
 
           
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
 
           
         </div>
@@ -80,29 +73,9 @@
           
             
             
-              
-            
             
               <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">ESnet_Zeek_Exporter/scripts/__load__.zeek</a><ul>
-<li><a class="reference internal" href="#summary">Summary</a><ul>
-<li><a class="reference internal" href="#runtime-options">Runtime Options</a></li>
-<li><a class="reference internal" href="#redefinable-options">Redefinable Options</a></li>
-<li><a class="reference internal" href="#types">Types</a></li>
-<li><a class="reference internal" href="#redefinitions">Redefinitions</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#detailed-interface">Detailed Interface</a><ul>
-<li><a class="reference internal" href="#id1">Runtime Options</a></li>
-<li><a class="reference internal" href="#id2">Redefinable Options</a></li>
-<li><a class="reference internal" href="#id3">Types</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
+              <div class="local-toc"></div>
             
           
         </div>
@@ -115,7 +88,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">Zeek Exporter</a>
+          <a href="index.html#document-index">Zeek Exporter</a>
         
       </nav>
 
@@ -144,16 +117,14 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="index.html#document-index">Docs</a> &raquo;</li>
         
-      <li>ESnet_Zeek_Exporter/scripts/__load__.zeek</li>
+      <li>Zeek Prometheus Exporter Plugin source</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -186,12 +157,12 @@
 <h3>Runtime Options<a class="headerlink" href="#runtime-options" title="Permalink to this headline">¶</a></h3>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 37%" />
-<col style="width: 63%" />
+<col style="width: 41%" />
+<col style="width: 59%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#id-Exporter::arg_functions" title="Exporter::arg_functions id"><code class="xref zeek zeek-id docutils literal notranslate"><span class="pre">Exporter::arg_functions</span></code></a>: <code class="xref zeek zeek-type docutils literal notranslate"><span class="pre">table</span></code> <code class="xref zeek zeek-attr docutils literal notranslate"><span class="pre">&amp;redef</span></code></p></td>
-<td><p>This is a table, indexed by the function name, of functions that we’ll grab additional arguments for, and store them as labels.</p></td>
+<td><p>This is the list of our functions for which we’ll grab the additional arguments and store them as labels.</p></td>
 </tr>
 </tbody>
 </table>
@@ -200,8 +171,8 @@
 <h3>Redefinable Options<a class="headerlink" href="#redefinable-options" title="Permalink to this headline">¶</a></h3>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 58%" />
-<col style="width: 42%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#id-Exporter::base_port" title="Exporter::base_port id"><code class="xref zeek zeek-id docutils literal notranslate"><span class="pre">Exporter::base_port</span></code></a>: <code class="xref zeek zeek-type docutils literal notranslate"><span class="pre">port</span></code> <code class="xref zeek zeek-attr docutils literal notranslate"><span class="pre">&amp;redef</span></code></p></td>
@@ -213,6 +184,9 @@ beginning with the next one above this.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#id-Exporter::bind_port" title="Exporter::bind_port id"><code class="xref zeek zeek-id docutils literal notranslate"><span class="pre">Exporter::bind_port</span></code></a>: <code class="xref zeek zeek-type docutils literal notranslate"><span class="pre">port</span></code> <code class="xref zeek zeek-attr docutils literal notranslate"><span class="pre">&amp;redef</span></code></p></td>
 <td><p>The port that the exporter will bind to</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#id-Exporter::conf_dat_path" title="Exporter::conf_dat_path id"><code class="xref zeek zeek-id docutils literal notranslate"><span class="pre">Exporter::conf_dat_path</span></code></a>: <code class="xref zeek zeek-type docutils literal notranslate"><span class="pre">string</span></code> <code class="xref zeek zeek-attr docutils literal notranslate"><span class="pre">&amp;redef</span></code></p></td>
+<td><p>The path to an Input framework file that will be used to set arg_functions.</p></td>
 </tr>
 </tbody>
 </table>
@@ -234,20 +208,6 @@ beginning with the next one above this.</p></td>
 </tbody>
 </table>
 </div>
-<div class="section" id="redefinitions">
-<h3>Redefinitions<a class="headerlink" href="#redefinitions" title="Permalink to this headline">¶</a></h3>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 99%" />
-<col style="width: 1%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id-Exporter::arg_functions" title="Exporter::arg_functions id"><code class="xref zeek zeek-id docutils literal notranslate"><span class="pre">Exporter::arg_functions</span></code></a>: <code class="xref zeek zeek-type docutils literal notranslate"><span class="pre">table</span></code> <code class="xref zeek zeek-attr docutils literal notranslate"><span class="pre">&amp;redef</span></code></p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 <div class="section" id="detailed-interface">
 <h2>Detailed Interface<a class="headerlink" href="#detailed-interface" title="Permalink to this headline">¶</a></h2>
@@ -256,7 +216,7 @@ beginning with the next one above this.</p></td>
 <dl class="id">
 <dt id="id-Exporter::arg_functions">
 <code class="sig-name descname">Exporter::arg_functions</code><a class="headerlink" href="#id-Exporter::arg_functions" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list">
+<dd><dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p><code class="xref zeek zeek-type docutils literal notranslate"><span class="pre">table</span></code> [<code class="xref zeek zeek-type docutils literal notranslate"><span class="pre">string</span></code>] of <a class="reference internal" href="#type-Exporter::AddlArgs" title="Exporter::AddlArgs type"><code class="xref zeek zeek-type docutils literal notranslate"><span class="pre">Exporter::AddlArgs</span></code></a></p>
 </dd>
@@ -266,15 +226,8 @@ beginning with the next one above this.</p></td>
 <dt class="field-odd">Default</dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">{}</span></code></p>
 </dd>
-<dt class="field-even">Redefinition</dt>
-<dd class="field-even"><p>from <span class="xref std std-doc">/scripts/ESnet_Zeek_Exporter/scripts/__load__.zeek</span></p>
-<p><code class="docutils literal notranslate"><span class="pre">+=</span></code>:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>net_weird = (coerce [$arg=0, $addl=1] to record { arg:int; addl:int; }), conn_weird = (coerce [$arg=0, $addl=2] to record { arg:int; addl:int; }), flow_weird = (coerce [$arg=0, $addl=3] to record { arg:int; addl:int; }), SumStats::cluster_get_result = (coerce [$arg=1] to record { arg:int; addl:int; }), SumStats::cluster_send_result = (coerce [$arg=1] to record { arg:int; addl:int; })
-</pre></div>
-</div>
-</dd>
 </dl>
-<p>This is a table, indexed by the function name, of functions that we’ll grab additional arguments for, and store them as labels.</p>
+<p>This is the list of our functions for which we’ll grab the additional arguments and store them as labels.</p>
 </dd></dl>
 
 </div>
@@ -332,6 +285,23 @@ beginning with the next one above this.</p>
 <p>The port that the exporter will bind to</p>
 </dd></dl>
 
+<dl class="id">
+<dt id="id-Exporter::conf_dat_path">
+<code class="sig-name descname">Exporter::conf_dat_path</code><a class="headerlink" href="#id-Exporter::conf_dat_path" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref zeek zeek-type docutils literal notranslate"><span class="pre">string</span></code></p>
+</dd>
+<dt class="field-even">Attributes</dt>
+<dd class="field-even"><p><code class="xref zeek zeek-attr docutils literal notranslate"><span class="pre">&amp;redef</span></code></p>
+</dd>
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">&quot;$(zeek-config</span> <span class="pre">--plugin_dir)/ESnet_Zeek_Exporter/scripts/conf.dat&quot;</span></code></p>
+</dd>
+</dl>
+<p>The path to an Input framework file that will be used to set arg_functions.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="id3">
 <h3>Types<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
@@ -385,7 +355,7 @@ Stored as a record in case someone wants to use the input framework.</p>
     <p>
         &copy; Copyright 2019, LBNL
       <span class="lastupdated">
-        Last updated on September 19, 2019.
+        Last updated on September 20, 2019.
       </span>
 
     </p>
