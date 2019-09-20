@@ -14,7 +14,8 @@ const bind_port: port;
 ##
 ## addl: The 0-indexed field in the val_list that we'll put in the 'addl' label
 ##
-function update_arg_functions%(name: string, arg: int, addl: int%): void
+function update_arg_functions%(name: string, arg: int, addl: int%): any
 	%{
 	// This is a noop, as it's handled in the plugin hook
+	return 0;
 	%}
