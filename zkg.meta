@@ -2,6 +2,10 @@
 script_dir = scripts/ESnet/Zeek_Exporter
 build_command = ./configure && make
 test_command = cd tests && btest
+description = Prometheus exporter for Zeek performance data
+credits = Vlad Grigorescu <vlad@es.net>
+tags = zeek plugin, performance, perf, stats, prometheus
+config_files = scripts/conf.dat
 external_depends =
   cmake >=3.5
   libcurl-devel *
