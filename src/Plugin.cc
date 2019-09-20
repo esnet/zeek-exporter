@@ -49,7 +49,6 @@ plugin::Configuration Plugin::Configure()
     config.description = "Prometheus exporter for Zeek";
     config.version.major = 0;
     config.version.minor = 1;
-    config.version.patch = 0;
 
     // We want to track functions even if they get handled by another hook, so high priority here
     EnableHook(HOOK_CALL_FUNCTION, 1000001);
@@ -122,8 +121,8 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
     }
 
     // Since we're handling the function call, we need to increase the ref count on the arguments
-    for ( const auto& arg : *args )
-        Ref(arg);
+    for ( int i = 0; i < args->length(); ++i )
+        Ref((*args)[i]);
 
     // Set our indicators, measure the runtime, and call the function.
     own_handler = true;
