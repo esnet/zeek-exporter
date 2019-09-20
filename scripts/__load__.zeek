@@ -41,7 +41,11 @@ export {
 redef bind_port = count_to_port(port_to_count(Cluster::nodes[Cluster::node]$p) - port_to_count(Cluster::nodes["control"]$p) + port_to_count(base_port), tcp);
 @endif
 
+@ifdef ( zeek_init )
 event zeek_init()
+@else
+event bro_init()
+@endif
       {
       # Example of using the input framework to update this:
       Input::add_table([$source=conf_dat_path, $name="arg_func_input",

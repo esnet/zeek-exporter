@@ -31,7 +31,20 @@ redef Exporter::bind_address = 192.168.1.11;
 @endif
 ```
 
-A Prometheus scrape target example is available in [prometheus/target.yml](./prometheus/target.yml).
+A Prometheus scrape target example for file discovery is available in [prometheus/target.yml](./prometheus/target.yml).
+
+The easiest way to get the list of ports is via `zeekctl`:
+
+```
+$ zeekctl print Exporter::bind_port
+zeek-logger   Exporter::bind_port = 9101/tcp
+zeek-manager   Exporter::bind_port = 9102/tcp
+zeek-proxy   Exporter::bind_port = 9103/tcp
+zeek-worker-1   Exporter::bind_port = 9104/tcp
+zeek-worker-2   Exporter::bind_port = 9105/tcp
+zeek-worker-3   Exporter::bind_port = 9106/tcp
+zeek-worker-4   Exporter::bind_port = 9107/tcp
+```
 
 Scrapes can occur as often as you need, and you can track how long scrapes take in the `exposer_request_latencies` metric.
 Our scrapes take about 0.2 seconds, and we scrape every 10 second, to detect some micro-bursts.
