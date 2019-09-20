@@ -54,6 +54,6 @@ event bro_init()
 
 event Input::end_of_data(name: string, source: string) {
      if ( name == "arg_func_input" )
-     	for ( name, vals in arg_functions )
-	        Exporter::update_arg_functions(name, vals$arg, vals$addl);
+     	for ( name in arg_functions )
+	        Exporter::update_arg_functions(name, arg_functions[name]$arg, arg_functions[name]$addl);
 }
