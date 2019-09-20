@@ -4,3 +4,4 @@ build_command = ./configure && make
 test_command = cd tests && btest
 external_depends =
   cmake >=3.5
+  libcurl-devel *
