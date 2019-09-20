@@ -1,7 +1,7 @@
 [package]
 script_dir = scripts/ESnet/Zeek_Exporter
 build_command = ./configure && make
-test_command = cd tests && btest
+test_command = cd tests && btest -d
 description = Prometheus exporter for Zeek performance data
 credits = Vlad Grigorescu <vlad@es.net>
 tags = zeek plugin, performance, perf, stats, prometheus
