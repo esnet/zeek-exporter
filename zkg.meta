@@ -1,6 +1,6 @@
 [package]
 script_dir = scripts/ESnet/Zeek_Exporter
-build_command = command -v cmake3 && (export PATH=.:$PATH; ln -s $(which cmake3) cmake; ./configure && make) || ./configure && make
+build_command = ./configure && make
 test_command = cd tests && btest
 external_depends =
   cmake >=3.5
