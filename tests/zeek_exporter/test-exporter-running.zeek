@@ -5,3 +5,12 @@
 
 redef exit_only_after_terminate=T;
 redef Exporter::bind_port=45713/tcp;
+
+@ifdef ( zeek_init )
+event zeek_init()
+@else
+event bro_init()
+@endif
+      {
+      Reporter::info("Sometimes we don't have any log writes, and thus nothing shows up for that metric.");
+      }
