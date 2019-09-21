@@ -1,1 +1,8 @@
- [listening_ports] -> [127.0.0.1:9101]
+ESnet::Zeek_Exporter - Prometheus exporter for Zeek (dynamic, version 0.1.0)
+    [Constant] Exporter::bind_address
+    [Constant] Exporter::bind_port
+    [Function] Exporter::update_arg_functions
+    Implements CallFunction (priority 1000001)
+    Implements LogWrite (priority -20)
+    Implements MetaHookPost (priority 0)
+    Implements <end> (priority 0)
