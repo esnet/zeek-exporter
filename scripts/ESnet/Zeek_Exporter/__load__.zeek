@@ -4,6 +4,13 @@
 module Exporter;
 
 export {
+       ## The name of the function that we will collect arguments for.
+       ## Stored as a record in case someone wants to use the input framework.
+       type FunctionName: record {
+       	    ## The name of the event, hook, or function for which we want arguments
+	    name: string;
+       };
+
        ## For this function name, we'll grab an arg and/or addl field, and add them as labels
        type AddlArgs: record {
 	    ## The 0-indexed position of the argument to put in the 'arg' label
