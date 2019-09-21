@@ -47,6 +47,8 @@ event zeek_init()
 event bro_init()
 @endif
       {
+      Reporter::info(fmt("Zeek Prometheus Exporter running on %s:%s", cat(bind_address), cat(base_port)));
+
       # Example of using the input framework to update this:
       Input::add_table([$source=conf_dat_path, $name="arg_func_input",
                         $idx=FunctionName, $val=AddlArgs, $destination=arg_functions]);
