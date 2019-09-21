@@ -4,7 +4,6 @@
 if command -v cmake3; then
     # Make a symlink, and prepend it ot the path
     ln -sf $(which cmake3) cmake
-    chmod +x cmake
     export PATH="$(cd $(dirname "$1") && pwd -P):$PATH"
 fi
 
