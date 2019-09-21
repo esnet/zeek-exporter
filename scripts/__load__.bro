@@ -1,1 +1,2 @@
-@load ./ESnet/Zeek_Exporter/__load__.zeek
+@load ./__load__.zeek
+

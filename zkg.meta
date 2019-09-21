@@ -1,5 +1,5 @@
 [package]
-script_dir = scripts/ESnet/Zeek_Exporter
+script_dir = scripts
 build_command = ./configure && make
 test_command = cd tests && btest -d
 description = Prometheus exporter for Zeek performance data
