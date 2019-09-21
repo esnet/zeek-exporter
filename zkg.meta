@@ -1,5 +1,5 @@
 [package]
-plugin_dir = ./build/dist/*.tgz
+plugin_dir = ./build/dist/*.tar.gz
 script_dir = scripts
 build_command = ./configure && make
 test_command = cd tests && btest -d
