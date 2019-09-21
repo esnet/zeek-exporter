@@ -1,5 +1,5 @@
 [package]
-plugin_dir = ./build/dist/*.tar.gz
+plugin_dir = ./build/ESnet_Zeek_Exporter.tgz
 script_dir = scripts
 build_command = ./configure && make
 test_command = cd tests && btest -d
