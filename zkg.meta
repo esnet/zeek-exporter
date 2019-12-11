@@ -11,4 +11,4 @@ external_depends =
   cmake >=3.5
   libcurl-devel *
 depends =
-  zeek >=2.6.0
+  zeek >=2.5.5

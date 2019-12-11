@@ -1,5 +1,7 @@
 @load base/frameworks/cluster
+@if (Version::number >= 20600)  # Config framework requires >= 2.6
 @load base/frameworks/config
+@endif
 
 module Exporter;
 
@@ -20,7 +22,11 @@ export {
        };
 
        ## This is the list of our functions for which we'll grab the additional arguments and store them as labels.
+@if (Version::number >= 20600)  # Option keyword requires >= 2.6
        option arg_functions: table[string] of AddlArgs = { };
+@else
+       global arg_functions: table[string] of AddlArgs = { };
+@endif
 
        ## The path to an Input framework file that will be used to set arg_functions.
        const conf_dat_path = cat(@DIR, "/conf.dat") &redef;
