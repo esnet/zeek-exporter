@@ -3,6 +3,8 @@
 
 #include <prometheus/exposer.h>
 #include <prometheus/registry.h>
+#include <BroString.h>
+#include <Func.h>
 
 #include "Event.h"
 #include "Plugin.h"
@@ -96,8 +98,9 @@ void Plugin::AddlArgumentPopulation(const char * name, val_list* args, std::map<
 std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, val_list* args)
 {
     // Without this, we'll recurse indefinitely
-    if ( func == current_func )
+    if ( func == current_func ) {
         return {false, NULL};
+    }
 
     // We create a new variable, because children will increase this
     unsigned short my_func_depth = func_depth;
@@ -128,7 +131,7 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
     own_handler = true;
     current_func = func;
     auto start = std::chrono::steady_clock::now();
-    Val* result = func->Call(args, frame);
+    IntrusivePtr<Val> result = func->Call(args, frame);
     auto stop = std::chrono::steady_clock::now();
     current_func = nullptr;
     own_handler = false;
@@ -195,8 +198,8 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
         if ( arg_val >= 0 || addl_val >= 0 )
             arg_events.insert({std::string((*args)[0]->AsString()->CheckString()), make_tuple(arg_val, addl_val)});
     }
-
-    return {true, result};
+    Ref(result.get());
+    return {true, result.get()};
 }
 
 bool Plugin::HookLogWrite(const std::string& writer, const std::string& filter, const logging::WriterBackend::WriterInfo& info, int num_fields, const threading::Field* const* fields, threading::Value** vals)
