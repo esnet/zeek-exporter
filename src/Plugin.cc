@@ -131,7 +131,7 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
     own_handler = true;
     current_func = func;
     auto start = std::chrono::steady_clock::now();
-    IntrusivePtr<Val> result = func->Call(args, frame);
+    auto result = func->Call(args, frame);
     auto stop = std::chrono::steady_clock::now();
     current_func = nullptr;
     own_handler = false;
