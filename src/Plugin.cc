@@ -198,8 +198,11 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
         if ( arg_val >= 0 || addl_val >= 0 )
             arg_events.insert({std::string((*args)[0]->AsString()->CheckString()), make_tuple(arg_val, addl_val)});
     }
-    Ref(result.get());
-    return {true, result.get()};
+#if ZEEK_VERSION_NUMBER >= 30200
+    return {true, result.release()};
+#else
+    return {true, result};
+#endif
 }
 
 bool Plugin::HookLogWrite(const std::string& writer, const std::string& filter, const logging::WriterBackend::WriterInfo& info, int num_fields, const threading::Field* const* fields, threading::Value** vals)
