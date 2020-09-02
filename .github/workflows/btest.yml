@@ -28,12 +28,17 @@ jobs:
         submodules: recursive
 
     - name: Install prereqs
-      run: apt install -y libcurl4
+      run: apt install -y libcurl4-openssl-dev
 
     - name: Install
       run: |
-        export PATH=/usr/local/zeek/bin:$PATH
+        source ${GITHUB_WORKSPACE}/.ci_scripts/env
         cd ${GITHUB_WORKSPACE}; ./configure && make && make install
+
+    - name: Test
+      run: |
+        source ${GITHUB_WORKSPACE}/.ci_scripts/env
+        cd ${GITHUB_WORKSPACE}/tests; make
 
   test_centos_7:
     name: Centos 7 with Zeek ${{ matrix.zeek }}
@@ -57,9 +62,13 @@ jobs:
 
     - name: Install
       run: |
-        export PATH=/usr/local/zeek/bin:$PATH
-        cd ${GITHUB_WORKSPACE}; echo "./configure" | scl enable devtoolset-7 -
-        cd ${GITHUB_WORKSPACE}; make && make install
+        source ${GITHUB_WORKSPACE}/.ci_scripts/env
+        cd ${GITHUB_WORKSPACE}; ./configure && make && make install
+
+    - name: Test
+      run: |
+        source ${GITHUB_WORKSPACE}/.ci_scripts/env
+        cd ${GITHUB_WORKSPACE}/tests; make
 
   test_centos_8:
     name: Centos 8 with Zeek ${{ matrix.zeek }}
@@ -83,5 +92,10 @@ jobs:
 
     - name: Install
       run: |
-        export PATH=/usr/local/zeek/bin:$PATH
+        source ${GITHUB_WORKSPACE}/.ci_scripts/env
         cd ${GITHUB_WORKSPACE}; ./configure && make && make install
+
+    - name: Test
+      run: |
+        source ${GITHUB_WORKSPACE}/.ci_scripts/env
+        cd ${GITHUB_WORKSPACE}/tests; make

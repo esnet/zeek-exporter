@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export PATH=/usr/local/zeek/bin:$PATH
+
+if command -v scl &> /dev/null
+then
+    source scl_source enable devtoolset-7
+fi
