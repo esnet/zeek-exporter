@@ -11,7 +11,7 @@ on:
 jobs:
   test_ubuntu:
     name: Ubuntu ${{ matrix.distro_version }} with Zeek ${{ matrix.zeek }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     container: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
 
     strategy:
@@ -37,7 +37,7 @@ jobs:
 
   test_centos:
     name: Centos ${{ matrix.distro }} with Zeek ${{ matrix.zeek }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     container: grigorescu/zeek_centos_${{ matrix.distro_version }}:${{ matrix.zeek }}
 
     strategy:
