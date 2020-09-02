@@ -1,4 +1,4 @@
-# @TEST-EXEC: if command -v zeek; then btest-bg-run zeek zeek %INPUT; else btest-bg-run zeek bro %INPUT; fi
+# @TEST-EXEC: if command -v zeek; then btest-bg-run zeek zeek %INPUT; else btest-bg-run zeek bro %INPUT; fi 1>&2
 # @TEST-EXEC: sleep 3; curl 127.0.0.1:45713/metrics | cut -f 1 -d '{' | sort | uniq | grep -v '#' | grep zeek_ > metrics
 # @TEST-EXEC: btest-bg-wait -k 2
 # @TEST-EXEC: btest-diff metrics
