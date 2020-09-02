@@ -28,7 +28,7 @@ jobs:
         submodules: recursive
 
     - name: Install prereqs
-      run: apt install -y libcurl-devel
+      run: apt install -y libcurl-dev
 
     - name: Install
       run: |
