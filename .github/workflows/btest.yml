@@ -28,7 +28,7 @@ jobs:
         submodules: recursive
 
     - name: Install prereqs
-      run: apt install -y libcurl4-openssl-dev
+      run: apt install -y libcurl4-openssl-dev net-tools
 
     - name: Install
       run: |
