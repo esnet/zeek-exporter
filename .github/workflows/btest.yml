@@ -32,14 +32,12 @@ jobs:
 
     - name: Install
       run: |
-        ls -la $GITHUB_WORKSPACE
-        ip addr list || ifconfig -a
-        source $GITHUB_WORKSPACE/.ci_scripts/env
+        source "$GITHUB_WORKSPACE/.ci_scripts/env"
         cd $GITHUB_WORKSPACE; ./configure && make && make install
 
     - name: Test
       run: |
-        cd $GITHUB_WORKSPACE; source .ci_scripts/env
+        source "$GITHUB_WORKSPACE/.ci_scripts/env"
         cd $GITHUB_WORKSPACE/tests; make
 
   test_centos_7:
@@ -64,12 +62,12 @@ jobs:
 
     - name: Install
       run: |
-        cd $GITHUB_WORKSPACE; source .ci_scripts/env
+        source "$GITHUB_WORKSPACE/.ci_scripts/env"
         cd $GITHUB_WORKSPACE; ./configure && make && make install
 
     - name: Test
       run: |
-        cd $GITHUB_WORKSPACE; source .ci_scripts/env
+        source "$GITHUB_WORKSPACE/.ci_scripts/env"
         cd $GITHUB_WORKSPACE/tests; make
 
   test_centos_8:
@@ -94,10 +92,10 @@ jobs:
 
     - name: Install
       run: |
-        cd $GITHUB_WORKSPACE; source .ci_scripts/env
+        source "$GITHUB_WORKSPACE/.ci_scripts/env"
         cd $GITHUB_WORKSPACE; ./configure && make && make install
 
     - name: Test
       run: |
-        cd $GITHUB_WORKSPACE; source .ci_scripts/env
+        source "$GITHUB_WORKSPACE/.ci_scripts/env"
         cd $GITHUB_WORKSPACE/tests; make
