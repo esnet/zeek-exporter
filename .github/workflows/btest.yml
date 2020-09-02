@@ -12,8 +12,7 @@ jobs:
   test_ubuntu:
     name: Ubuntu ${{ matrix.distro_version }} with Zeek ${{ matrix.zeek }}
     runs-on: ubuntu-20.04
-    container:
-      image: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
+    container: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
       options: --network="host"
 
     strategy:
