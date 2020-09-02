@@ -32,13 +32,13 @@ jobs:
 
     - name: Install
       run: |
-        source ${GITHUB_WORKSPACE}/.ci_scripts/env
-        cd ${GITHUB_WORKSPACE}; ./configure && make && make install
+        source $GITHUB_WORKSPACE/.ci_scripts/env
+        cd $GITHUB_WORKSPACE; ./configure && make && make install
 
     - name: Test
       run: |
-        source ${GITHUB_WORKSPACE}/.ci_scripts/env
-        cd ${GITHUB_WORKSPACE}/tests; make
+        source $GITHUB_WORKSPACE/.ci_scripts/env
+        cd $GITHUB_WORKSPACE/tests; make
 
   test_centos_7:
     name: Centos 7 with Zeek ${{ matrix.zeek }}
@@ -62,13 +62,13 @@ jobs:
 
     - name: Install
       run: |
-        source ${GITHUB_WORKSPACE}/.ci_scripts/env
-        cd ${GITHUB_WORKSPACE}; ./configure && make && make install
+        source $GITHUB_WORKSPACE/.ci_scripts/env
+        cd $GITHUB_WORKSPACE; ./configure && make && make install
 
     - name: Test
       run: |
-        source ${GITHUB_WORKSPACE}/.ci_scripts/env
-        cd ${GITHUB_WORKSPACE}/tests; make
+        source $GITHUB_WORKSPACE/.ci_scripts/env
+        cd $GITHUB_WORKSPACE/tests; make
 
   test_centos_8:
     name: Centos 8 with Zeek ${{ matrix.zeek }}
@@ -92,10 +92,10 @@ jobs:
 
     - name: Install
       run: |
-        source ${GITHUB_WORKSPACE}/.ci_scripts/env
-        cd ${GITHUB_WORKSPACE}; ./configure && make && make install
+        source $GITHUB_WORKSPACE/.ci_scripts/env
+        cd $GITHUB_WORKSPACE; ./configure && make && make install
 
     - name: Test
       run: |
-        source ${GITHUB_WORKSPACE}/.ci_scripts/env
-        cd ${GITHUB_WORKSPACE}/tests; make
+        source $GITHUB_WORKSPACE/.ci_scripts/env
+        cd $GITHUB_WORKSPACE/tests; make
