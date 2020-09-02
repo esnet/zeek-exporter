@@ -12,7 +12,9 @@ jobs:
   test_ubuntu:
     name: Ubuntu ${{ matrix.distro_version }} with Zeek ${{ matrix.zeek }}
     runs-on: ubuntu-20.04
-    container: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
+    container:
+      image: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
+      options: --network="host"
 
     strategy:
       fail-fast: false
@@ -43,7 +45,9 @@ jobs:
   test_centos_7:
     name: Centos 7 with Zeek ${{ matrix.zeek }}
     runs-on: ubuntu-20.04
-    container: grigorescu/zeek_centos_7:${{ matrix.zeek }}
+    container:
+      image: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
+      options: --network="host"
 
     strategy:
       fail-fast: false
@@ -73,7 +77,9 @@ jobs:
   test_centos_8:
     name: Centos 8 with Zeek ${{ matrix.zeek }}
     runs-on: ubuntu-20.04
-    container: grigorescu/zeek_centos_8:${{ matrix.zeek }}
+    container:
+      image: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
+      options: --network="host"
 
     strategy:
       fail-fast: false
