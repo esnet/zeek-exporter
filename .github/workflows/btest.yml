@@ -29,7 +29,9 @@ jobs:
       run: apt install -y libcurl-devel
 
     - name: Install
-      run: make -C ${GITHUB_WORKSPACE} && make install
+      run: |
+        export PATH=/usr/local/zeek/bin:$PATH
+        cd ${GITHUB_WORKSPACE}; ./configure && make -C && make install
 
   test_centos:
     name: Centos ${{ matrix.distro }} with Zeek ${{ matrix.zeek }}
@@ -51,5 +53,6 @@ jobs:
       run: yum install -y libcurl-devel
 
     - name: Install
-      run: make -C ${GITHUB_WORKSPACE} && make install
-
+      run: |
+        export PATH=/usr/local/zeek/bin:$PATH
+        cd ${GITHUB_WORKSPACE}; ./configure && make -C && make install
