@@ -28,7 +28,7 @@ jobs:
         submodules: recursive
 
     - name: Install prereqs
-      run: apt install -y libcurl4-openssl-dev net-tools
+      run: apt install -y libcurl4-openssl-dev
 
     - name: Install
       run: |
@@ -62,11 +62,13 @@ jobs:
 
     - name: Install
       run: |
+        source scl_source enable devtoolset-7
         source "$GITHUB_WORKSPACE/.ci_scripts/env"
         cd $GITHUB_WORKSPACE; ./configure && make && make install
 
     - name: Test
       run: |
+        source scl_source enable devtoolset-7
         source "$GITHUB_WORKSPACE/.ci_scripts/env"
         cd $GITHUB_WORKSPACE/tests; make
 
