@@ -32,8 +32,7 @@ jobs:
 
     - name: Install
       run: |
-        ls $GITHUB_WORKSPACE
-        cd $GITHUB_WORKSPACE; source .ci_scripts/env
+        source $GITHUB_WORKSPACE/.ci_scripts/env
         cd $GITHUB_WORKSPACE; ./configure && make && make install
 
     - name: Test
