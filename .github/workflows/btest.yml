@@ -28,15 +28,15 @@ jobs:
         submodules: recursive
 
     - name: Install prereqs
-      run: apt install -y libcurl-dev
+      run: apt install -y libcurl-openssl-dev
 
     - name: Install
       run: |
         export PATH=/usr/local/zeek/bin:$PATH
-        cd ${GITHUB_WORKSPACE}; ./configure && make -C && make install
+        cd ${GITHUB_WORKSPACE}; ./configure && make && make install
 
   test_centos:
-    name: Centos ${{ matrix.distro }} with Zeek ${{ matrix.zeek }}
+    name: Centos ${{ matrix.distro_version }} with Zeek ${{ matrix.zeek }}
     runs-on: ubuntu-20.04
     container: grigorescu/zeek_centos_${{ matrix.distro_version }}:${{ matrix.zeek }}
 
@@ -59,4 +59,4 @@ jobs:
     - name: Install
       run: |
         export PATH=/usr/local/zeek/bin:$PATH
-        cd ${GITHUB_WORKSPACE}; ./configure && make -C && make install
+        cd ${GITHUB_WORKSPACE}; ./configure && make && make install
