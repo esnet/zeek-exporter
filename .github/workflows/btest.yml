@@ -10,15 +10,15 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   test_ubuntu:
-    name: Ubuntu ${{ matrix.distro }} with Zeek ${{ matrix.zeek }}
+    name: Ubuntu ${{ matrix.distro_version }} with Zeek ${{ matrix.zeek }}
     runs-on: ubuntu-18.04
-    container: grigorescu/zeek_ubuntu_${{ matrix.ubuntu_version }}:${{ matrix.zeek }}
+    container: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
 
     strategy:
       fail-fast: false
       matrix:
         zeek: ["v3.0", "v3.1", "v3.2", "v3.3", "latest", "script_optimizer"]
-        distro: ["18", "20"]
+        distro_version: ["18", "20"]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -34,13 +34,13 @@ jobs:
   test_centos:
     name: Centos ${{ matrix.distro }} with Zeek ${{ matrix.zeek }}
     runs-on: ubuntu-18.04
-    container: grigorescu/zeek_centos_${{ matrix.ubuntu_version }}:${{ matrix.zeek }}
+    container: grigorescu/zeek_centos_${{ matrix.distro_version }}:${{ matrix.zeek }}
 
     strategy:
       fail-fast: false
       matrix:
         zeek: ["v3.0", "v3.1", "v3.2", "v3.3", "latest", "script_optimizer"]
-        distro: ["7", "8"]
+        distro_version: ["7", "8"]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
