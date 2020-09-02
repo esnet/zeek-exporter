@@ -11,6 +11,7 @@ event zeek_init()
 @else
 event bro_init()
 @endif
-      {
-      Reporter::info("Sometimes we don't have any log writes, and thus nothing shows up for that metric.");
-      }
+	{
+	Reporter::info("Sometimes we don't have any log writes, and thus nothing shows up for that metric.");
+	Log::flush(Reporter::ID);
+	}
