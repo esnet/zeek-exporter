@@ -5,13 +5,13 @@ all: cleanup btest-verbose
 
 # Showing all tests.
 btest-verbose:
-	@btest -j -f $(DIAG) -x $(JUNIT) || { cat $(DIAG); exit 1 }
+	@btest -j -f $(DIAG) -x $(JUNIT) || ( cat $(DIAG); exit 1 )
 
 brief: cleanup btest-brief
 
 # Brief output showing only failed tests.
 btest-brief:
-	@btest -j -b -f $(DIAG) -x $(JUNIT) || { cat $(DIAG); exit 1 }
+	@btest -j -b -f $(DIAG) -x $(JUNIT) || ( cat $(DIAG); exit 1 )
 
 coverage:
 	@./Scripts/coverage

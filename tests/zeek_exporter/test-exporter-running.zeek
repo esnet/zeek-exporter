@@ -14,6 +14,7 @@ event zeek_init()
 event bro_init()
 @endif
 	{
+	print "Zeek started";
 	Reporter::info("Sometimes we don't have any log writes, and thus nothing shows up for that metric.");
 	Log::flush(Reporter::ID);
 	}
