@@ -12,7 +12,8 @@ jobs:
   test_ubuntu:
     name: Ubuntu ${{ matrix.distro_version }} with Zeek ${{ matrix.zeek }}
     runs-on: ubuntu-20.04
-    container: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
+    container:
+      image: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
       options: --network="host"
 
     strategy:
@@ -33,6 +34,7 @@ jobs:
 
     - name: Install
       run: |
+        ls -la $GITHUB_WORKSPACE
         source $GITHUB_WORKSPACE/.ci_scripts/env
         cd $GITHUB_WORKSPACE; ./configure && make && make install
 
@@ -45,7 +47,7 @@ jobs:
     name: Centos 7 with Zeek ${{ matrix.zeek }}
     runs-on: ubuntu-20.04
     container:
-      image: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
+      image: grigorescu/zeek_centos_7:${{ matrix.zeek }}
       options: --network="host"
 
     strategy:
@@ -77,7 +79,7 @@ jobs:
     name: Centos 8 with Zeek ${{ matrix.zeek }}
     runs-on: ubuntu-20.04
     container:
-      image: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
+      image: grigorescu/zeek_centos_8:${{ matrix.zeek }}
       options: --network="host"
 
     strategy:
