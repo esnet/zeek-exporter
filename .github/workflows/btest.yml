@@ -32,12 +32,12 @@ jobs:
 
     - name: Install
       run: |
-        source "$GITHUB_WORKSPACE/.ci_scripts/env"
+        export PATH=/usr/local/zeek/bin:$PATH
         cd $GITHUB_WORKSPACE; ./configure && make && make install
 
     - name: Test
       run: |
-        source "$GITHUB_WORKSPACE/.ci_scripts/env"
+        export PATH=/usr/local/zeek/bin:$PATH
         cd $GITHUB_WORKSPACE/tests; make
 
   test_centos_7:
@@ -62,15 +62,13 @@ jobs:
 
     - name: Install
       run: |
-        source scl_source enable devtoolset-7
-        source "$GITHUB_WORKSPACE/.ci_scripts/env"
-        cd $GITHUB_WORKSPACE; ./configure && make && make install
+        export PATH=/usr/local/zeek/bin:$PATH
+        cd $GITHUB_WORKSPACE; echo "./configure && make && make install" | scl enable devtoolset-7 - || ./configure && make && make install
 
     - name: Test
       run: |
-        source scl_source enable devtoolset-7
-        source "$GITHUB_WORKSPACE/.ci_scripts/env"
-        cd $GITHUB_WORKSPACE/tests; make
+        export PATH=/usr/local/zeek/bin:$PATH
+        cd $GITHUB_WORKSPACE/tests; scl enable devtoolset-7 make || make
 
   test_centos_8:
     name: Centos 8 with Zeek ${{ matrix.zeek }}
@@ -94,10 +92,10 @@ jobs:
 
     - name: Install
       run: |
-        source "$GITHUB_WORKSPACE/.ci_scripts/env"
+        export PATH=/usr/local/zeek/bin:$PATH
         cd $GITHUB_WORKSPACE; ./configure && make && make install
 
     - name: Test
       run: |
-        source "$GITHUB_WORKSPACE/.ci_scripts/env"
+        export PATH=/usr/local/zeek/bin:$PATH
         cd $GITHUB_WORKSPACE/tests; make
