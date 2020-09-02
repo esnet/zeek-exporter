@@ -1,0 +1,33 @@
+# This workflow will execute the accompanying btests
+
+name: btest CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+on:
+  push:
+  pull_request:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  test:
+    name: Linux with Zeek ${{ matrix.zeek }}
+    runs-on: ubuntu-18.04
+    container: grigorescu/zeek_${{ matrix.distro }}:${{ matrix.zeek }}
+
+    strategy:
+      matrix:
+        zeek: ["v3.0", "v3.1", "v3.2", "v3.3", "latest", "script_optimizer"]
+        distro: ["ubuntu_18", "ubuntu_20", "centos_7", "centos_8"]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - name: Install prereqs
+      run: sudo yum install -y libcurl-devel
+
+    - name: Install
+      run: make -C ${GITHUB_WORKSPACE} && make install
+
