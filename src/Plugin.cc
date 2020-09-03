@@ -198,8 +198,8 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
         if ( arg_val >= 0 || addl_val >= 0 )
             arg_events.insert({std::string((*args)[0]->AsString()->CheckString()), std::make_tuple(arg_val, addl_val)});
     }
-#if ZEEK_VERSION_NUMBER >= 30200
-    return {true, result.release()};
+#if ZEEK_VERSION_NUMBER >= 30300
+    return {true, result->release()};
 #else
     return {true, result};
 #endif
