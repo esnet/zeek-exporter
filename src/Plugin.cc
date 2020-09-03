@@ -103,7 +103,7 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
     }
 
     // We create a new variable, because children will increase this
-    std::stack::size_type my_func_depth = func_depth;
+    size_t my_func_depth = func_depth;
 
     std::map<std::string, std::string> labels;
 

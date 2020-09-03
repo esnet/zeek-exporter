@@ -38,7 +38,7 @@ namespace plugin {
             const char* node_name = getenv("CLUSTER_NODE") ? getenv("CLUSTER_NODE") : "standalone";
 
             // The current function depth. Used for time calculation and lineage.
-            std::stack::size_type func_depth = 0;
+            size_t func_depth = 0;
             // Track our parents
             std::vector<const char *> lineage;
 
