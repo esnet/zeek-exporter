@@ -1,5 +1,4 @@
-#ifndef BRO_PLUGIN_ESNET_ZEEK_EXPORTER
-#define BRO_PLUGIN_ESNET_ZEEK_EXPORTER
+#pragma once
 
 #include <chrono>
 
@@ -152,5 +151,3 @@ namespace plugin {
 
     }
 }
-
-#endif

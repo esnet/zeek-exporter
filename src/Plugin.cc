@@ -4,11 +4,11 @@
 #include <prometheus/exposer.h>
 #include <prometheus/registry.h>
 #include <BroString.h>
+#include <Event.h>
 #include <Func.h>
+#include <Reporter.h>
 
-#include "Event.h"
 #include "Plugin.h"
-#include "Reporter.h"
 
 namespace plugin { namespace ESnet_Zeek_Exporter { Plugin plugin; } }
 
@@ -198,11 +198,7 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
         if ( arg_val >= 0 || addl_val >= 0 )
             arg_events.insert({std::string((*args)[0]->AsString()->CheckString()), std::make_tuple(arg_val, addl_val)});
     }
-#if ZEEK_VERSION_NUMBER >= 30300
-    return {true, result->release()};
-#else
     return {true, result};
-#endif
 }
 
 bool Plugin::HookLogWrite(const std::string& writer, const std::string& filter, const logging::WriterBackend::WriterInfo& info, int num_fields, const threading::Field* const* fields, threading::Value** vals)
