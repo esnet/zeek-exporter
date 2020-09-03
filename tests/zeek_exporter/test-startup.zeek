@@ -1,6 +1,6 @@
 # @TEST-EXEC: if ! command -v zeek; then alias zeek bro; fi
 # @TEST-EXEC: zeek %INPUT
-# @TEST-EXEC: btest-diff reporter.log
+# @TEST-EXEC: btest-diff weird.log
 
 redef Exporter::bind_port=45713/tcp;
 redef Exporter::bind_address=0.0.0.0;
@@ -11,7 +11,7 @@ event zeek_init()
 event bro_init()
 @endif
 	{
-	Reporter::info("Sometimes we don't have any log writes, and thus nothing shows up for that metric.");
-	Log::flush(Reporter::LOG);
+	Reporter::net_weird("Sometimes we don't have any log writes, and thus nothing shows up for that metric.");
+	Log::flush(Weird::LOG);
 	}
 
