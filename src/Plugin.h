@@ -38,9 +38,9 @@ namespace plugin {
             const char* node_name = getenv("CLUSTER_NODE") ? getenv("CLUSTER_NODE") : "standalone";
 
             // The current function depth. Used for time calculation and lineage.
-            unsigned short func_depth = 0;
+            std::stack::size_type func_depth = 0;
             // Track our parents
-            vector<const char *> lineage;
+            std::vector<const char *> lineage;
 
             // In order to time how long function execution takes, we call the function ourselves (returning false to the plugin manager to indicate that we've taken over responsibility).
             // However, we want to provide other plugins a chance to run, so when the function gets called, hooks get executed again. To prevent recursing, we need to track some state
@@ -58,18 +58,18 @@ namespace plugin {
             std::chrono::steady_clock::time_point other_hook_start;
 
             // These are a stack to track children duration separately from parents.
-            stack<std::chrono::steady_clock::time_point> func_hook_starts;
+            std::stack<std::chrono::steady_clock::time_point> func_hook_starts;
 
             // The duration of our CallFunction hook is the duration of the hook itself + the duration of the function call. We track
             // the function call durations here, so we can have an accurate duration of just the CallFunction hook.
-            stack<std::chrono::microseconds> func_durations;
+            std::stack<std::chrono::microseconds> func_durations;
 
             // The duration of our function call is the duration of the function itself (the "absolute" time) + the duration
             // of any child functions called by the measured function. We keep track of those child function durations here,
             // so we can have an accurate "absolute" duration of just the function call.
-            vector<double> child_func_durations;
+            std::vector<double> child_func_durations;
 
-            typedef tuple<int, int> offset_pair;
+            typedef std::tuple<int, int> offset_pair;
             // These events are those which we want to add more labels to, so we can track based on arguments.
             // Note: These should only be events with well-bounded arguments.
             //
@@ -77,7 +77,7 @@ namespace plugin {
             // The second int in the tuple is the offset in the var_list to store in the "addl" label.
             //
             // -1 offsets will not be stored.
-            map<std::string, offset_pair> arg_events;
+            std::map<std::string, offset_pair> arg_events;
 
             // The data that we're exposing to Prometheus:
             std::shared_ptr<prometheus::Exposer> exposer;

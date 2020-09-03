@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        zeek: ["v3.0", "v3.1", "v3.2", "v3.3", "latest", "script_optimizer"]
+        zeek: ["v3.0", "v3.1", "v3.2", "v3.3", "latest"]
         distro_version: ["18", "20"]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -40,45 +40,15 @@ jobs:
         export PATH=/usr/local/zeek/bin:$PATH
         cd $GITHUB_WORKSPACE/tests; make
 
-  test_centos_7:
-    name: Centos 7 with Zeek ${{ matrix.zeek }}
-    runs-on: ubuntu-20.04
-    container: grigorescu/zeek_centos_7:${{ matrix.zeek }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        zeek: ["v3.0", "v3.1", "v3.2", "v3.3", "latest", "script_optimizer"]
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v1
-      with:
-        submodules: recursive
-
-    - name: Install prereqs
-      run: yum install -y libcurl-devel
-
-    - name: Install
-      run: |
-        export PATH=/usr/local/zeek/bin:$PATH
-        cd $GITHUB_WORKSPACE; echo "./configure && make && make install" | scl enable devtoolset-7 - || ./configure && make && make install
-
-    - name: Test
-      run: |
-        export PATH=/usr/local/zeek/bin:$PATH
-        cd $GITHUB_WORKSPACE/tests; scl enable devtoolset-7 make || make
-
   test_centos_8:
-    name: Centos 8 with Zeek ${{ matrix.zeek }}
+    name: CentOS 8 with Zeek ${{ matrix.zeek }}
     runs-on: ubuntu-20.04
     container: grigorescu/zeek_centos_8:${{ matrix.zeek }}
 
     strategy:
       fail-fast: false
       matrix:
-        zeek: ["v3.0", "v3.1", "v3.2", "v3.3", "latest", "script_optimizer"]
+        zeek: ["v3.0", "v3.1", "v3.2", "v3.3", "latest"]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

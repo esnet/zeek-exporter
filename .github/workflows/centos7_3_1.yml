@@ -1,0 +1,35 @@
+# This workflow will execute the accompanying btests
+
+name: Zeek 3.1
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+on:
+  push:
+  pull_request:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test_centos_7:
+    name: CentOS 7 with Zeek 3.1
+    runs-on: ubuntu-20.04
+    container: grigorescu/zeek_centos_7:v3.1
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v1
+      with:
+        submodules: recursive
+
+    - name: Install prereqs
+      run: yum install -y libcurl-devel
+
+    - name: Install
+      run: |
+        export PATH=/usr/local/zeek/bin:$PATH
+        cd $GITHUB_WORKSPACE; echo "./configure && make && make install" | scl enable devtoolset-7 - || ./configure && make && make install
+
+    - name: Test
+      run: |
+        export PATH=/usr/local/zeek/bin:$PATH
+        cd $GITHUB_WORKSPACE/tests; scl enable devtoolset-7 make || make

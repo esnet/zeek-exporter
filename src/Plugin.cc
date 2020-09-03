@@ -73,8 +73,8 @@ void Plugin::AddlArgumentPopulation(const char * name, val_list* args, std::map<
     {
         if ( strcmp(name, arg_event.first.c_str()) == 0 )
         {
-            arg_offset = get<0>(arg_event.second);
-            addl_offset = get<1>(arg_event.second);
+            arg_offset = std::get<0>(arg_event.second);
+            addl_offset = std::get<1>(arg_event.second);
             break;
         }
     }
@@ -103,7 +103,7 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
     }
 
     // We create a new variable, because children will increase this
-    unsigned short my_func_depth = func_depth;
+    std::stack::size_type my_func_depth = func_depth;
 
     std::map<std::string, std::string> labels;
 
@@ -196,7 +196,7 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
         int arg_val = (*args)[1]->AsInt();
         int addl_val = (*args)[2]->AsInt();
         if ( arg_val >= 0 || addl_val >= 0 )
-            arg_events.insert({std::string((*args)[0]->AsString()->CheckString()), make_tuple(arg_val, addl_val)});
+	        arg_events.insert({std::string((*args)[0]->AsString()->CheckString()), std::make_tuple(arg_val, addl_val)});
     }
 #if ZEEK_VERSION_NUMBER >= 30200
     return {true, result.release()};
@@ -220,7 +220,7 @@ void Plugin::MetaHookPre(HookType hook, const HookArgumentList& args)
 {
     // This hook is our most common entrypoint, so we track overall CPU time here
     zeek_total_cpu_time_seconds.Add({{"type", "cpu_time"}}).Set((double) clock()/CLOCKS_PER_SEC);
-    
+
     if ( hook == HOOK_LOG_WRITE )
         log_hook_start = std::chrono::steady_clock::now();
     else if ( hook == HOOK_CALL_FUNCTION )
