@@ -131,7 +131,7 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
     own_handler = true;
     current_func = func;
     auto start = std::chrono::steady_clock::now();
-    auto result = func->Call(args, frame);
+    Val* result = func->Call(args, frame);
     auto stop = std::chrono::steady_clock::now();
     current_func = nullptr;
     own_handler = false;
@@ -199,7 +199,7 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
             arg_events.insert({std::string((*args)[0]->AsString()->CheckString()), std::make_tuple(arg_val, addl_val)});
     }
 #if ZEEK_VERSION_NUMBER >= 30200
-    return {true, result->release()};
+    return {true, result.release()};
 #else
     return {true, result};
 #endif
