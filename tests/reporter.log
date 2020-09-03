@@ -1,0 +1,11 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	reporter
+#open	2020-09-03-18-35-24
+#fields	ts	level	message	location
+#types	time	enum	string	string
+1599176124.543823	Reporter::INFO	() Zeek Prometheus Exporter running on 0.0.0.0:45713/tcp	/Users/vlad/projects/zeek/v3.2.0/lib/zeek/plugins/ESnet_Zeek_Exporter/scripts/./main.zeek, line 36
+1599176129.851027	Reporter::INFO	received termination signal	(empty)
+#close	2020-09-03-18-35-29

@@ -21,21 +21,7 @@ be scraped with [Prometheus](https://prometheus.io/).
 
 ### Configure Binds and Scraping
 
-The scripts will assign each node a unique port. For a single-system cluster, you should just need to redef the address it binds to:
-
-`redef Exporter::bind_address = zeek.example.com;`
-
-For a multi-box cluster, you can do something like:
-
-```
-@if ( Cluster::is_enabled() && gethostname() == "sensor1.example.com" )
-redef Exporter::bind_address = 192.168.1.10;
-@endif
-
-@if ( Cluster::is_enabled() && gethostname() == "sensor2.example.com" )
-redef Exporter::bind_address = 192.168.1.11;
-@endif
-```
+The scripts will assign each node a unique port. By default, it will bind to all addresses (0.0.0.0).
 
 A Prometheus scrape target example for file discovery is available in [prometheus/target.yml](./prometheus/target.yml).
 
@@ -53,7 +39,7 @@ zeek-worker-4   Exporter::bind_port = 9107/tcp
 ```
 
 Scrapes can occur as often as you need, and you can track how long scrapes take in the `exposer_request_latencies` metric.
-Our scrapes take about 0.2 seconds, and we scrape every 10 second, to detect some micro-bursts.
+Our scrapes take about 0.2 seconds, and we scrape every 10 seconds, to detect some micro-bursts.
 
 The cost of frequent scrapes is disk space on the Prometheus system, and increased memory/computation when generating the graphs.
 

@@ -1,9 +1,8 @@
 # @TEST-EXEC: if ! command -v zeek; then alias zeek bro; fi
-# @TEST-EXEC: zeek %INPUT
+# @TEST-EXEC: zeek -b %INPUT
 # @TEST-EXEC: btest-diff weird.log
 
-redef Exporter::bind_port=45713/tcp;
-redef Exporter::bind_address=0.0.0.0;
+@load base/frameworks/notice/weird
 
 @ifdef ( zeek_init )
 event zeek_init()

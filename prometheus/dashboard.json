@@ -13,13 +13,13 @@
     {
       "type": "panel",
       "id": "alertlist",
-      "name": "Alert List",
+      "name": "Alert list",
       "version": ""
     },
     {
       "type": "panel",
       "id": "bargauge",
-      "name": "Bar Gauge",
+      "name": "Bar gauge",
       "version": ""
     },
     {
@@ -32,7 +32,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "6.3.5"
+      "version": "7.1.5"
     },
     {
       "type": "panel",
@@ -78,32 +78,26 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1568902331492,
+  "iteration": 1599168251703,
   "links": [],
   "panels": [
     {
       "cacheTimeout": null,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "description": "",
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
-      "id": 63,
-      "links": [],
-      "options": {
-        "displayMode": "lcd",
-        "fieldOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "defaults": {
-            "decimals": 2,
-            "mappings": [],
-            "max": 1,
-            "min": 0,
-            "thresholds": [
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "decimals": 2,
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
               {
                 "color": "blue",
                 "value": null
@@ -124,15 +118,33 @@
                 "color": "#E24D42",
                 "value": 1
               }
-            ],
-            "unit": "s"
+            ]
           },
-          "override": {},
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 63,
+      "links": [],
+      "options": {
+        "displayMode": "lcd",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
           "values": false
         },
-        "orientation": "horizontal"
+        "showUnfilled": true
       },
-      "pluginVersion": "6.3.5",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "rate(zeek_total_cpu_time_seconds{zeek_cluster=\"$cluster\", exported_type=\"cpu_time\", node!~\".*logger\"}[$__interval])",
@@ -152,8 +164,16 @@
       "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "decimals": 0,
       "description": "How many restarts has each process had?",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -162,6 +182,7 @@
         "x": 12,
         "y": 0
       },
+      "hiddenSeries": false,
       "id": 32,
       "legend": {
         "avg": false,
@@ -176,11 +197,8 @@
       "linewidth": 3,
       "links": [],
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
-      "pluginVersion": "6.3.5",
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -241,25 +259,20 @@
     },
     {
       "cacheTimeout": null,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "description": "",
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 12,
-        "y": 5
-      },
-      "id": 71,
-      "links": [],
-      "options": {
-        "fieldOptions": {
-          "calcs": [
-            "max"
-          ],
-          "defaults": {
-            "mappings": [],
-            "max": 100,
-            "min": 0,
-            "thresholds": [
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
               {
                 "color": "green",
                 "value": null
@@ -277,15 +290,31 @@
                 "value": 50000
               }
             ]
-          },
-          "override": {},
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 12,
+        "y": 5
+      },
+      "id": 71,
+      "links": [],
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
           "values": false
         },
-        "orientation": "auto",
         "showThresholdLabels": false,
         "showThresholdMarkers": false
       },
-      "pluginVersion": "6.3.5",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "sum(rate(zeek_function_calls_total{name=\"new_connection\", zeek_cluster=\"$cluster\"}[$__interval]))",
@@ -301,25 +330,20 @@
     },
     {
       "cacheTimeout": null,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "description": "",
-      "gridPos": {
-        "h": 5,
-        "w": 2,
-        "x": 15,
-        "y": 5
-      },
-      "id": 69,
-      "links": [],
-      "options": {
-        "fieldOptions": {
-          "calcs": [
-            "max"
-          ],
-          "defaults": {
-            "mappings": [],
-            "max": 100,
-            "min": 0,
-            "thresholds": [
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
               {
                 "color": "green",
                 "value": null
@@ -337,15 +361,31 @@
                 "value": 50000
               }
             ]
-          },
-          "override": {},
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 2,
+        "x": 15,
+        "y": 5
+      },
+      "id": 69,
+      "links": [],
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
           "values": false
         },
-        "orientation": "auto",
         "showThresholdLabels": false,
         "showThresholdMarkers": false
       },
-      "pluginVersion": "6.3.5",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "sum(rate(zeek_log_writes_total{zeek_cluster=\"$cluster\"}[$__interval]))",
@@ -361,25 +401,20 @@
     },
     {
       "cacheTimeout": null,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "description": "",
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 17,
-        "y": 5
-      },
-      "id": 70,
-      "links": [],
-      "options": {
-        "fieldOptions": {
-          "calcs": [
-            "max"
-          ],
-          "defaults": {
-            "mappings": [],
-            "max": 100,
-            "min": 0,
-            "thresholds": [
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
               {
                 "color": "green",
                 "value": null
@@ -397,15 +432,31 @@
                 "value": 1000000
               }
             ]
-          },
-          "override": {},
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 17,
+        "y": 5
+      },
+      "id": 70,
+      "links": [],
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
           "values": false
         },
-        "orientation": "auto",
         "showThresholdLabels": false,
         "showThresholdMarkers": false
       },
-      "pluginVersion": "6.3.5",
+      "pluginVersion": "7.1.5",
       "targets": [
         {
           "expr": "sum(rate(zeek_function_calls_total{zeek_cluster=\"$cluster\"}[$__interval]))",
@@ -423,7 +474,14 @@
       "cacheTimeout": null,
       "dashboardFilter": "",
       "dashboardTags": [],
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "folderId": 1,
       "gridPos": {
         "h": 5,
@@ -436,7 +494,6 @@
       "links": [],
       "nameFilter": "",
       "onlyAlertsOnDashboard": false,
-      "options": {},
       "pluginVersion": "6.3.5",
       "show": "current",
       "sortOrder": 1,
@@ -456,6 +513,7 @@
     },
     {
       "collapsed": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -472,7 +530,15 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -481,17 +547,19 @@
         "x": 0,
         "y": 11
       },
+      "hiddenSeries": false,
       "id": 2,
       "legend": {
         "alignAsTable": true,
         "avg": true,
-        "current": true,
+        "current": false,
+        "hideEmpty": false,
         "hideZero": true,
         "max": false,
         "min": false,
         "rightSide": true,
         "show": true,
-        "sort": "current",
+        "sort": "avg",
         "sortDesc": true,
         "total": false,
         "values": true
@@ -499,10 +567,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -512,8 +578,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(zeek_log_writes_total{exported_type=\"log_write\", writer=\"Log::WRITER_ASCII\", zeek_cluster=\"$cluster\"}[$__interval])) by (path)",
+          "expr": "sum(rate(zeek_log_writes_total{exported_type=~\"log_(write|writer)\", writer=\"Log::WRITER_ASCII\", zeek_cluster=\"$cluster\"}[$__interval])) by (path)",
           "hide": false,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{ path }}",
           "refId": "A"
@@ -539,14 +606,16 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": "Log Rate (Log)",
+          "$$hashKey": "object:779",
+          "format": "wps",
+          "label": "lines/s",
           "logBase": 1,
           "max": null,
           "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:780",
           "format": "short",
           "label": "",
           "logBase": 1,
@@ -565,7 +634,15 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -574,6 +651,7 @@
         "x": 12,
         "y": 11
       },
+      "hiddenSeries": false,
       "id": 3,
       "legend": {
         "alignAsTable": true,
@@ -592,10 +670,8 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null as zero",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -631,14 +707,16 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": "Event Rate (Log)",
+          "$$hashKey": "object:908",
+          "format": "cps",
+          "label": "calls/s",
           "logBase": 1,
           "max": null,
           "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:909",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -653,1366 +731,31 @@
       }
     },
     {
-      "collapsed": false,
+      "collapsed": true,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 19
       },
-      "id": 6,
-      "panels": [],
-      "title": "Function Calls",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "Top 20 functions that are being called.",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 20
-      },
-      "id": 4,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null as zero",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "topk(10, sum(rate(zeek_function_calls_total{function_type!=\"event\", zeek_cluster=\"$cluster\", name=~\".+\"}[$__interval])) by (name))",
-          "intervalFactor": 4,
-          "legendFormat": "{{ name }}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Top Functions",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "Function Call Rate (Log)",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "This tracks which function was called, and what the parent function was.",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 20
-      },
-      "id": 7,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null as zero",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "topk(10, sum(rate(zeek_function_calls_total{function_type!=\"event\", zeek_cluster=\"$cluster\", name=~\".+\"}[$__interval])) by (name, function_caller))",
-          "intervalFactor": 4,
-          "legendFormat": "{{ function_caller }} -> {{ name }}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Top Function Paths",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "Function Path Rate (Log)",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 28
-      },
-      "id": 35,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "Top 10 Built-In Functions (\"BIFs\") by the amount of time spent executing them.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 29
-          },
-          "id": 33,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "repeat": "node_type",
-          "repeatDirection": "v",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=\"built-in function\", zeek_cluster=\"$cluster\", node=~\".*manager$\"}[$__interval])) by (name))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top BIFs by Time [Manager]",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "s",
-              "label": "Function Call Rate (Log)",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "Top 10 script-land functions (including hooks, but excluding events) by the amount of time spent executing them.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 29
-          },
-          "id": 36,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=~\"(script-land function|hook)\", zeek_cluster=\"$cluster\", node=~\".*manager$\"}[$__interval])) by (name))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top Script-Land Functions by Time [Manager]",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "s",
-              "label": "Function Call Rate (Log)",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "Top 10 Built-In Functions (\"BIFs\") by the amount of time spent executing them.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 37
-          },
-          "id": 37,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=\"built-in function\", zeek_cluster=\"$cluster\", node=~\".*worker-.*\"}[$__interval])) by (name))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top BIFs by Time [Workers]",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "s",
-              "label": "Function Call Rate (Log)",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "Top 10 script-land functions (including hooks, but excluding events) by the amount of time spent executing them.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 37
-          },
-          "id": 38,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=~\"(script-land function|hook)\", zeek_cluster=\"$cluster\", node=~\".*worker-.*\"}[$__interval])) by (name))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top Script-Land Functions by Time [Workers]",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "s",
-              "label": "Function Call Rate (Log)",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "Top 10 Built-In Functions (\"BIFs\") by the amount of time spent executing them.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 45
-          },
-          "id": 39,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=\"built-in function\", zeek_cluster=\"$cluster\", node=~\".*logger$\"}[$__interval])) by (name))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top BIFs by Time [Logger]",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "s",
-              "label": "Function Call Rate (Log)",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "Top 10 script-land functions (including hooks, but excluding events) by the amount of time spent executing them.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 45
-          },
-          "id": 41,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=~\"(script-land function|hook)\", zeek_cluster=\"$cluster\", node=~\".*logger\"}[$__interval])) by (name))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top Script-Land Functions by Time [Logger]",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "s",
-              "label": "Function Call Rate (Log)",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "Top 10 Built-In Functions (\"BIFs\") by the amount of time spent executing them.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 53
-          },
-          "id": 40,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=\"built-in function\", zeek_cluster=\"$cluster\", node=~\".*proxy$\"}[$__interval])) by (name))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top BIFs by Time [Proxy]",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "s",
-              "label": "Function Call Rate (Log)",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "Top 10 script-land functions (including hooks, but excluding events) by the amount of time spent executing them.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 53
-          },
-          "id": 42,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=~\"(script-land function|hook)\", zeek_cluster=\"$cluster\", node=~\".*proxy\"}[$__interval])) by (name))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top Script-Land Functions by Time [Proxy]",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "s",
-              "label": "Function Call Rate (Log)",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        }
-      ],
-      "title": "Functions by Time Spent",
-      "type": "row"
-    },
-    {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 29
-      },
-      "id": 45,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "Top 10 events by the amount of time spent executing them.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 30
-          },
-          "id": 43,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=\"event\", zeek_cluster=\"$cluster\", node=~\".*manager$\"}[$__interval])) by (name))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top Events by Time [Manager]",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "µs",
-              "label": "Function Call Rate (Log)",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "Top 10 events by the amount of time spent executing them.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 30
-          },
-          "id": 46,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=\"event\", zeek_cluster=\"$cluster\", node=~\".*worker-.*$\"}[$__interval])) by (name))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top Events by Time [Worker]",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "µs",
-              "label": "Function Call Rate (Log)",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "Top 10 events by the amount of time spent executing them.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 38
-          },
-          "id": 47,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=\"event\", zeek_cluster=\"$cluster\", node=~\".*proxy$\"}[$__interval])) by (name))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top Events by Time [Proxy]",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "µs",
-              "label": "Function Call Rate (Log)",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "Top 10 events by the amount of time spent executing them.",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 38
-          },
-          "id": 48,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=\"event\", zeek_cluster=\"$cluster\", node=~\".*logger$\"}[$__interval])) by (name))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Top Events by Time [Logger]",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "µs",
-              "label": "Function Call Rate (Log)",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        }
-      ],
-      "title": "Events by Time Spent",
-      "type": "row"
-    },
-    {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 30
-      },
       "id": 11,
       "panels": [
         {
+          "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
           "description": "",
-          "gridPos": {
-            "h": 7,
-            "w": 3,
-            "x": 0,
-            "y": 23
-          },
-          "id": 13,
-          "options": {
-            "displayMode": "lcd",
-            "fieldOptions": {
-              "calcs": [
-                "last"
-              ],
-              "defaults": {
-                "mappings": [],
-                "max": 1000,
-                "min": 0,
-                "thresholds": [
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {},
+              "mappings": [],
+              "max": 1000,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
                   {
                     "color": "blue",
                     "value": null
@@ -2034,17 +777,35 @@
                     "value": 800
                   }
                 ]
-              },
-              "override": {},
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 3,
+            "x": 0,
+            "y": 20
+          },
+          "id": 13,
+          "options": {
+            "displayMode": "lcd",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
               "values": false
             },
-            "orientation": "horizontal"
+            "showUnfilled": true
           },
-          "pluginVersion": "6.3.5",
+          "pluginVersion": "7.1.5",
           "targets": [
             {
-              "expr": "sort_desc(topk(5, sum(irate(zeek_log_writes_total{exported_type=\"log_write\", writer=\"Log::WRITER_ASCII\", zeek_cluster=\"$cluster\"}[$__interval])) by (path)))",
+              "expr": "sort_desc(topk(5, sum(irate(zeek_log_writes_total{exported_type=~\"log_(write|writer)\", writer=\"Log::WRITER_ASCII\", zeek_cluster=\"$cluster\"}[$__interval])) by (path)))",
               "instant": true,
+              "interval": "",
               "legendFormat": "{{ path }}",
               "refId": "A"
             }
@@ -2055,25 +816,20 @@
           "type": "bargauge"
         },
         {
+          "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
           "description": "",
-          "gridPos": {
-            "h": 7,
-            "w": 11,
-            "x": 3,
-            "y": 23
-          },
-          "id": 15,
-          "options": {
-            "displayMode": "lcd",
-            "fieldOptions": {
-              "calcs": [
-                "last"
-              ],
-              "defaults": {
-                "mappings": [],
-                "max": 5000,
-                "min": 0,
-                "thresholds": [
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {},
+              "mappings": [],
+              "max": 5000,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
                   {
                     "color": "blue",
                     "value": null
@@ -2095,13 +851,30 @@
                     "value": 4000
                   }
                 ]
-              },
-              "override": {},
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 11,
+            "x": 3,
+            "y": 20
+          },
+          "id": 15,
+          "options": {
+            "displayMode": "lcd",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
               "values": false
             },
-            "orientation": "horizontal"
+            "showUnfilled": true
           },
-          "pluginVersion": "6.3.5",
+          "pluginVersion": "7.1.5",
           "targets": [
             {
               "expr": "sort_desc(topk(10, sum(irate(zeek_function_calls_total{function_type!=\"event\", zeek_cluster=\"$cluster\", name=~\".+\"}[$__interval])) by (name)))",
@@ -2116,25 +889,20 @@
           "type": "bargauge"
         },
         {
+          "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
           "description": "",
-          "gridPos": {
-            "h": 7,
-            "w": 10,
-            "x": 14,
-            "y": 23
-          },
-          "id": 14,
-          "options": {
-            "displayMode": "lcd",
-            "fieldOptions": {
-              "calcs": [
-                "last"
-              ],
-              "defaults": {
-                "mappings": [],
-                "max": 5000,
-                "min": 0,
-                "thresholds": [
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {},
+              "mappings": [],
+              "max": 5000,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
                   {
                     "color": "blue",
                     "value": null
@@ -2156,13 +924,30 @@
                     "value": 4000
                   }
                 ]
-              },
-              "override": {},
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 10,
+            "x": 14,
+            "y": 20
+          },
+          "id": 14,
+          "options": {
+            "displayMode": "lcd",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
               "values": false
             },
-            "orientation": "horizontal"
+            "showUnfilled": true
           },
-          "pluginVersion": "6.3.5",
+          "pluginVersion": "7.1.5",
           "targets": [
             {
               "expr": "topk(10, sum(irate(zeek_function_calls_total{function_type=\"event\", zeek_cluster=\"$cluster\", name=~\".+\"}[$__interval])) by (name))",
@@ -2181,607 +966,17 @@
       "type": "row"
     },
     {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 31
-      },
-      "id": 17,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 56
-          },
-          "id": 19,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "hideEmpty": true,
-            "hideZero": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(rate(zeek_function_calls_total{name=~\".*weird\", arg!=\"unknown_protocol\", zeek_cluster=\"$cluster\", arg=~\".+\"}[$__interval])) by (arg)",
-              "intervalFactor": 2,
-              "legendFormat": "{{ arg }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Weirds",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "cacheTimeout": null,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 56
-          },
-          "id": 28,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null as zero",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "label_replace(label_replace(label_replace(label_replace(label_replace(label_replace(sum(rate(zeek_function_calls_total{name=\"net_weird\", arg=\"unknown_protocol\", zeek_cluster=\"$cluster\"}[$__interval])) by (addl), \"addl\", \"RSVP\", \"addl\", \"^46$\"), \"addl\", \"PIM\", \"addl\", \"^103$\"), \"addl\", \"IGMP\", \"addl\", \"^2$\"), \"addl\", \"SCTP\", \"addl\", \"^132$\"), \"addl\", \"ESP\", \"addl\", \"^50$\"), \"addl\", \"EGP\", \"addl\", \"^8$\")",
-              "intervalFactor": 2,
-              "legendFormat": "{{ addl }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Unknown Protocols",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        }
-      ],
-      "title": "Weirds",
-      "type": "row"
-    },
-    {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 32
-      },
-      "id": 22,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 65
-          },
-          "id": 20,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "sum(rate(zeek_function_calls_total{name=~\"SumStats.*\", zeek_cluster=\"$cluster\", arg=~\".+\"}[$__interval])) by (arg)",
-              "intervalFactor": 2,
-              "legendFormat": "{{ arg }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "SumStats by Name",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 65
-          },
-          "id": 23,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "connected",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": true,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "label_replace(sum(rate(zeek_function_calls_total{name=~\"SumStats.*\", zeek_cluster=\"$cluster\"}[$__interval])) by (node), \"node\", \"$1\", \"node\", \".*(worker-.*|manager)\")/scalar(sum(rate(zeek_function_calls_total{name=~\"SumStats.*\"}[$__interval])))",
-              "hide": false,
-              "intervalFactor": 2,
-              "legendFormat": "{{ node }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "SumStats by Node",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "decimals": null,
-              "format": "percentunit",
-              "label": "Percent of SumStats.* Function Calls",
-              "logBase": 1,
-              "max": "100",
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        }
-      ],
-      "title": "SumStats",
-      "type": "row"
-    },
-    {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 33
-      },
-      "id": 25,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 6,
-            "w": 12,
-            "x": 0,
-            "y": 34
-          },
-          "id": 27,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": true,
-          "pluginVersion": "6.3.5",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "label_replace(rate(zeek_function_calls_total{name=\"new_connection\", node=~\".*worker.*\", zeek_cluster=\"$cluster\"}[$__interval]), \"node\", \"$1\", \"node\", \".*(worker-.*)$\")/scalar(sum(rate(zeek_function_calls_total{name=\"new_connection\", node=~\".*worker-.*\", zeek_cluster=\"$cluster\"}[$__interval])))",
-              "intervalFactor": 2,
-              "legendFormat": "{{ node }}",
-              "refId": "B"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "New Connections by Worker (%)",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "decimals": null,
-              "format": "percentunit",
-              "label": "Percent of New Connections",
-              "logBase": 1,
-              "max": "100",
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": "",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "",
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 6,
-            "w": 12,
-            "x": 12,
-            "y": 34
-          },
-          "id": 30,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
-          "percentage": true,
-          "pluginVersion": "6.3.5",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "label_replace(sum(rate(zeek_function_calls_total{name=\"Log::write\", node=~\".*worker-.*\", zeek_cluster=\"$cluster\"}[$__interval])) by (node), \"node\", \"$1\", \"node\", \".*(worker-.*)$\") / scalar(sum(rate(zeek_function_calls_total{name=\"Log::write\", node=~\".*worker-.*\", zeek_cluster=\"$cluster\"}[$__interval])))",
-              "format": "time_series",
-              "instant": false,
-              "intervalFactor": 2,
-              "legendFormat": "{{ node }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Log Writes by Worker (%)",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "decimals": null,
-              "format": "percentunit",
-              "label": "Percent of Log Writes",
-              "logBase": 1,
-              "max": "100",
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": "",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        }
-      ],
-      "title": "Traffic Distribution",
-      "type": "row"
-    },
-    {
       "collapsed": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 20
       },
-      "id": 61,
+      "id": 6,
       "panels": [],
-      "title": "Runtimes",
+      "title": "Script Profiling: Function Calls",
       "type": "row"
     },
     {
@@ -2789,31 +984,611 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "decimals": 1,
+      "description": "Top 20 functions that are being called. This is filtered by the \"node type\" variable at the top of the dashboard.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 21
       },
-      "id": 59,
+      "hiddenSeries": false,
+      "id": 4,
       "legend": {
+        "alignAsTable": true,
         "avg": true,
-        "current": false,
+        "current": true,
+        "hideZero": true,
         "max": false,
         "min": false,
+        "rightSide": true,
         "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "node",
+      "repeatDirection": "v",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "topk(10, sum(rate(zeek_function_calls_total{function_type!=\"event\", zeek_cluster=\"$cluster\", name=~\".+\", node=~\".*[[node]][-0-9]*$\"}[$__interval])) by (name))",
+          "interval": "",
+          "intervalFactor": 4,
+          "legendFormat": "{{ name }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Top Function by Invocations ($node)",
+      "tooltip": {
+        "shared": false,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:695",
+          "decimals": 1,
+          "format": "cps",
+          "label": "Function Calls/s",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:696",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "description": "This tracks which function was called, and what the parent function was.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 21
+      },
+      "hiddenSeries": false,
+      "id": 7,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": false,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "node",
+      "repeatDirection": "v",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "topk(10, sum(rate(zeek_function_calls_total{function_type!=\"event\", zeek_cluster=\"$cluster\", name=~\".+\", node=~\".*[[node]][-0-9]*$\"}[$__interval])) by (name, function_caller))",
+          "interval": "",
+          "intervalFactor": 4,
+          "legendFormat": "{{ function_caller }} -> {{ name }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Top Function Paths ($node)",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:211",
+          "format": "cps",
+          "label": "Function Path Calls/s",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:212",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 45
+      },
+      "id": 35,
+      "panels": [],
+      "title": "Script Profiling: Function Time",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "description": "Top 10 Built-In Functions (\"BIFs\") by the amount of time spent executing them. This is filtered by the \"node type\" variable at the top of the dashboard.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 46
+      },
+      "hiddenSeries": false,
+      "id": 33,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "node",
+      "repeatDirection": "v",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=\"built-in function\", zeek_cluster=\"$cluster\", node=~\".*[[node]][-0-9]*$\"}[$__interval])) by (name))",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ name }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Top BIFs by Time ($node)",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:278",
+          "format": "s",
+          "label": "Function Call Rate (Log)",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:279",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "description": "Top 10 script-land functions (including hooks, but excluding events) by the amount of time spent executing them. This is filtered by the \"node type\" variable at the top of the dashboard.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 46
+      },
+      "hiddenSeries": false,
+      "id": 36,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "node",
+      "repeatDirection": "v",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=~\"(script-land function|hook)\", zeek_cluster=\"$cluster\", node=~\".*[[node]][-0-9]*$\"}[$__interval])) by (name))",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ name }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Top Script-Land Functions by Time ($node)",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:356",
+          "format": "s",
+          "label": "Function Call Rate (Log)",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:357",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 70
+      },
+      "id": 45,
+      "panels": [],
+      "title": "Script Profiling: Event Time",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "decimals": 1,
+      "description": "Top 10 events by the amount of time spent executing them. This is filtered by the \"node type\" variable at the top of the dashboard.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 71
+      },
+      "hiddenSeries": false,
+      "id": 43,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": null,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "node",
+      "repeatDirection": "v",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "topk(10, sum(rate(zeek_cpu_time_per_function_seconds{function_type=\"event\", zeek_cluster=\"$cluster\", node=~\".*[[node]][-0-9]*$\"}[$__interval])) by (name))",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ name }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Top Events by Time ($node)",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:294",
+          "format": "µs",
+          "label": "Function Call Rate (Log)",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:295",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 86
+      },
+      "id": 17,
+      "panels": [],
+      "title": "Weirds",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 87
+      },
+      "hiddenSeries": false,
+      "id": 19,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
         "total": false,
         "values": true
       },
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2823,23 +1598,229 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", plugin!=\"ESnet::Zeek_Exporter\"}[$__interval])) by (hook) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\"})))",
+          "expr": "sum(rate(zeek_function_calls_total{name=~\".*weird\", arg!=\"unknown_protocol\", zeek_cluster=\"$cluster\", arg=~\".+\"}[$__interval])) by (arg)",
           "intervalFactor": 2,
-          "legendFormat": "{{ hook }}",
+          "legendFormat": "{{ arg }}",
           "refId": "A"
-        },
-        {
-          "expr": "sum(rate(zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", plugin=\"ESnet::Zeek_Exporter\"}[$__interval])) by (hook, plugin) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\"})))",
-          "intervalFactor": 2,
-          "legendFormat": "{{ hook }} (Plugin: {{ plugin }})",
-          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Plugin Runtime by Hook",
+      "title": "Weirds",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 87
+      },
+      "hiddenSeries": false,
+      "id": 28,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "label_replace(label_replace(label_replace(label_replace(label_replace(label_replace(sum(rate(zeek_function_calls_total{name=\"net_weird\", arg=\"unknown_protocol\", zeek_cluster=\"$cluster\"}[$__interval])) by (addl), \"addl\", \"RSVP\", \"addl\", \"^46$\"), \"addl\", \"PIM\", \"addl\", \"^103$\"), \"addl\", \"IGMP\", \"addl\", \"^2$\"), \"addl\", \"SCTP\", \"addl\", \"^132$\"), \"addl\", \"ESP\", \"addl\", \"^50$\"), \"addl\", \"EGP\", \"addl\", \"^8$\")",
+          "intervalFactor": 2,
+          "legendFormat": "{{ addl }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Unknown Protocols",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 95
+      },
+      "id": 22,
+      "panels": [],
+      "title": "SumStats",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 96
+      },
+      "hiddenSeries": false,
+      "id": 20,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(rate(zeek_function_calls_total{name=~\"SumStats.*\", zeek_cluster=\"$cluster\", arg=~\".+\"}[$__interval])) by (arg)",
+          "intervalFactor": 2,
+          "legendFormat": "{{ arg }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "SumStats by Name",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2855,8 +1836,7 @@
       },
       "yaxes": [
         {
-          "decimals": null,
-          "format": "s",
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -2882,418 +1862,78 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "description": "",
-      "fill": 1,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 96
       },
-      "id": 62,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Total",
-          "color": "#F2495C",
-          "dashes": true,
-          "fill": 0,
-          "hideTooltip": true,
-          "legend": false,
-          "linewidth": 2,
-          "stack": false
-        },
-        {
-          "alias": "Total CPU Runtime",
-          "fill": 0,
-          "stack": false
-        }
-      ],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "Plugin Hook",
-          "refId": "A"
-        },
-        {
-          "expr": "sum(rate(zeek_cpu_time_per_function_type_seconds{zeek_cluster=\"$cluster\", function_type=\"built-in function\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "BIFs",
-          "refId": "C"
-        },
-        {
-          "expr": "sum(rate(zeek_cpu_time_per_function_type_seconds{zeek_cluster=\"$cluster\", function_type=~\"(event|hook|script-land function)\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "Scripts",
-          "refId": "B"
-        },
-        {
-          "expr": "sum(rate(zeek_total_cpu_time_seconds{zeek_cluster=\"$cluster\", exported_type=\"cpu_time\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "Total CPU Runtime",
-          "refId": "E"
-        },
-        {
-          "expr": "1",
-          "hide": false,
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "Total",
-          "refId": "D"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Total Runtime by Function Type",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": null,
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 43
-      },
-      "id": 65,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Total",
-          "color": "#F2495C",
-          "dashes": true,
-          "fill": 0,
-          "hideTooltip": true,
-          "legend": false,
-          "linewidth": 2,
-          "stack": false
-        },
-        {
-          "alias": "Total CPU Runtime",
-          "fill": 0,
-          "stack": false
-        }
-      ],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*manager\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*manager\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "Plugin Hook",
-          "refId": "A"
-        },
-        {
-          "expr": "sum(rate(zeek_cpu_time_per_function_type_seconds{zeek_cluster=\"$cluster\", function_type=\"built-in function\", node=~\".*manager\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*manager\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "BIFs",
-          "refId": "C"
-        },
-        {
-          "expr": "sum(rate(zeek_cpu_time_per_function_type_seconds{zeek_cluster=\"$cluster\", function_type=~\"(event|hook|script-land function)\", node=~\".*manager\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*manager\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "Scripts",
-          "refId": "B"
-        },
-        {
-          "expr": "sum(rate(zeek_total_cpu_time_seconds{zeek_cluster=\"$cluster\", exported_type=\"cpu_time\", node=~\".*manager\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*manager\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "Total CPU Runtime",
-          "refId": "E"
-        },
-        {
-          "expr": "1",
-          "hide": false,
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "Total",
-          "refId": "D"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Total Runtime by Function Type [Manager]",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": null,
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                1
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
-        "handler": 1,
-        "name": "Worker Under Water",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 43
-      },
-      "id": 64,
+      "hiddenSeries": false,
+      "id": 23,
       "legend": {
         "alignAsTable": true,
         "avg": true,
-        "current": false,
-        "max": true,
+        "current": true,
+        "max": false,
         "min": false,
         "rightSide": true,
         "show": true,
+        "sort": "current",
+        "sortDesc": true,
         "total": false,
         "values": true
       },
       "lines": true,
       "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
+      "nullPointMode": "connected",
+      "percentage": true,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [
         {
+          "$$hashKey": "object:376",
           "alias": "Total",
-          "color": "#F2495C",
-          "dashes": true,
-          "fill": 0,
-          "hideTooltip": true,
-          "legend": false,
-          "linewidth": 2,
-          "stack": false
-        },
-        {
-          "alias": "Total CPU Runtime",
-          "fill": 0,
-          "stack": false
+          "dashes": true
         }
       ],
       "spaceLength": 10,
-      "stack": true,
+      "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*worker-.*\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*worker-.*\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "Plugin Hook",
-          "refId": "A"
-        },
-        {
-          "expr": "sum(rate(zeek_cpu_time_per_function_type_seconds{zeek_cluster=\"$cluster\", function_type=\"built-in function\", node=~\".*worker-.*\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*worker-.*\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "BIFs",
-          "refId": "C"
-        },
-        {
-          "expr": "sum(rate(zeek_cpu_time_per_function_type_seconds{zeek_cluster=\"$cluster\", function_type=~\"(event|hook|script-land function)\", node=~\".*worker-.*\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*worker-.*\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "Scripts",
+          "expr": "sum by (node) (rate(zeek_function_calls_total{name=~\"SumStats::.*\", zeek_cluster=\"$cluster\"}[$__interval]))",
+          "interval": "",
+          "legendFormat": "{{ node }}",
           "refId": "B"
         },
         {
-          "expr": "sum(rate(zeek_total_cpu_time_seconds{zeek_cluster=\"$cluster\", exported_type=\"cpu_time\", node=~\".*worker-.*\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*worker-.*\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "Total CPU Runtime",
-          "refId": "E"
-        },
-        {
-          "expr": "1",
-          "hide": false,
-          "instant": false,
-          "intervalFactor": 2,
+          "expr": "sum(rate(zeek_function_calls_total{name=~\"SumStats::.*\", zeek_cluster=\"$cluster\"}[$__interval]))",
+          "interval": "",
           "legendFormat": "Total",
-          "refId": "D"
+          "refId": "C"
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 1
-        }
-      ],
+      "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Total Runtime by Function Type [Workers]",
+      "title": "SumStats by Node",
       "tooltip": {
         "shared": true,
-        "sort": 2,
+        "sort": 0,
         "value_type": "individual"
       },
       "type": "graph",
@@ -3306,15 +1946,17 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:274",
           "decimals": null,
-          "format": "s",
-          "label": null,
+          "format": "short",
+          "label": "SumStats:: Function Calls",
           "logBase": 1,
           "max": null,
           "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:275",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3329,107 +1971,85 @@
       }
     },
     {
+      "collapsed": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 104
+      },
+      "id": 25,
+      "panels": [],
+      "title": "Traffic Distribution",
+      "type": "row"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "description": "",
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "decimals": 1,
+      "description": "Perfectly balanced would have each worker at 0%.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
+        "h": 6,
         "w": 12,
         "x": 0,
-        "y": 51
+        "y": 105
       },
-      "id": 67,
+      "hiddenSeries": false,
+      "id": 27,
       "legend": {
         "alignAsTable": true,
         "avg": false,
         "current": false,
         "max": true,
-        "min": false,
+        "min": true,
         "rightSide": true,
         "show": true,
+        "sideWidth": null,
         "total": false,
         "values": true
       },
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
+      "percentage": true,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Total",
-          "color": "#F2495C",
-          "dashes": true,
-          "fill": 0,
-          "hideTooltip": true,
-          "legend": false,
-          "linewidth": 2,
-          "stack": false
-        },
-        {
-          "alias": "Total CPU Runtime",
-          "fill": 0,
-          "stack": false
-        }
-      ],
+      "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": true,
+      "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*proxy\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*proxy\"})))",
-          "hide": false,
+          "expr": "(1/scalar(count (zeek_function_calls_total{name=\"new_connection\", zeek_cluster=\"$cluster\"}))) - rate(zeek_function_calls_total{name=\"new_connection\", zeek_cluster=\"$cluster\"}[$__interval])/scalar(sum(rate(zeek_function_calls_total{name=\"new_connection\", zeek_cluster=\"$cluster\"}[$__interval])))",
+          "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "Plugin Hook",
-          "refId": "A"
-        },
-        {
-          "expr": "sum(rate(zeek_cpu_time_per_function_type_seconds{zeek_cluster=\"$cluster\", function_type=\"built-in function\", node=~\".*proxy\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*proxy\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "BIFs",
-          "refId": "C"
-        },
-        {
-          "expr": "sum(rate(zeek_cpu_time_per_function_type_seconds{zeek_cluster=\"$cluster\", function_type=~\"(event|hook|script-land function)\", node=~\".*proxy\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*proxy\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "Scripts",
+          "legendFormat": "{{ node }}",
           "refId": "B"
-        },
-        {
-          "expr": "sum(rate(zeek_total_cpu_time_seconds{zeek_cluster=\"$cluster\", exported_type=\"cpu_time\", node=~\".*proxy\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*proxy\"})))",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "Total CPU Runtime",
-          "refId": "E"
-        },
-        {
-          "expr": "1",
-          "hide": false,
-          "instant": false,
-          "intervalFactor": 2,
-          "legendFormat": "Total",
-          "refId": "D"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Total Runtime by Function Type [Proxy]",
+      "title": "New Connections by Worker (% drift)",
       "tooltip": {
         "shared": true,
-        "sort": 2,
+        "sort": 0,
         "value_type": "individual"
       },
       "type": "graph",
@@ -3442,6 +2062,437 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:114",
+          "decimals": 1,
+          "format": "percentunit",
+          "label": "Percent of New Connections",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:115",
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "decimals": 1,
+      "description": "Perfectly balanced would have each system at 0%.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 105
+      },
+      "hiddenSeries": false,
+      "id": 99,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": null,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": true,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "(1/scalar(count (count by (box) (label_replace(zeek_function_calls_total{name=\"new_connection\", zeek_cluster=\"$cluster\"}, \"box\", \"$1\", \"instance\", \"(.*):.*\"))))) - (sum by (box) (label_replace(rate(zeek_function_calls_total{name=\"new_connection\", zeek_cluster=\"$cluster\"}[$__interval]), \"box\", \"$1\", \"instance\", \"(.*):.*\")))/scalar(sum(rate(zeek_function_calls_total{name=\"new_connection\", zeek_cluster=\"$cluster\"}[$__interval])))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{ box }}",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "New Connections by System (% drift)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:114",
+          "decimals": 1,
+          "format": "short",
+          "label": "Percent of New Connections",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:115",
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "decimals": 1,
+      "description": "Perfectly balanced would have each worker at 0%.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 111
+      },
+      "hiddenSeries": false,
+      "id": 100,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": null,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": true,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "(1/scalar(count (zeek_function_calls_total{name=\"Log::__write\", zeek_cluster=\"$cluster\", node!~\"(manager|logger|proxy)\"}))) - rate(zeek_function_calls_total{name=\"Log::__write\", zeek_cluster=\"$cluster\", node!~\"(manager|logger|proxy)\"}[$__interval])/scalar(sum(rate(zeek_function_calls_total{name=\"Log::__write\", zeek_cluster=\"$cluster\", node!~\"(manager|logger|proxy)\"}[$__interval])))",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ node }}",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Log Writes by Worker (% drift)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:114",
+          "decimals": 1,
+          "format": "percentunit",
+          "label": "Percent of New Connections",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:115",
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "decimals": 1,
+      "description": "Perfectly balanced would have each system at 0%.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 111
+      },
+      "hiddenSeries": false,
+      "id": 101,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": null,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": true,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "(1/scalar(count (count by (box) (label_replace(zeek_function_calls_total{name=\"Log::__write\", zeek_cluster=\"$cluster\", node!~\"(manager|logger|proxy)\"}, \"box\", \"$1\", \"instance\", \"(.*):.*\"))))) - (sum by (box) (label_replace(rate(zeek_function_calls_total{name=\"Log::__write\", zeek_cluster=\"$cluster\", node!~\"(manager|logger|proxy)\"}[$__interval]), \"box\", \"$1\", \"instance\", \"(.*):.*\")))/scalar(sum(rate(zeek_function_calls_total{name=\"Log::__write\", zeek_cluster=\"$cluster\", node!~\"(manager|logger|proxy)\"}[$__interval])))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{ box }}",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Log Writes by System (% drift)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:114",
+          "decimals": 1,
+          "format": "short",
+          "label": "Percent of New Connections",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:115",
+          "decimals": null,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 117
+      },
+      "id": 61,
+      "panels": [],
+      "title": "Runtimes",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 118
+      },
+      "hiddenSeries": false,
+      "id": 59,
+      "legend": {
+        "avg": true,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "node",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(rate(zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", plugin!=\"ESnet::Zeek_Exporter\", node=~\".*[[node]][-0-9]*$\"}[$__interval])) by (hook) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*[[node]][-0-9]*$\"})))",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ hook }}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", plugin=\"ESnet::Zeek_Exporter\", node=~\".*[[node]][-0-9]*$\"}[$__interval])) by (hook, plugin) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*[[node]][-0-9]*$\"})))",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{ hook }} (Plugin: {{ plugin }})",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Plugin Runtime by Hook ($node)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:193",
           "decimals": null,
           "format": "s",
           "label": null,
@@ -3451,6 +2502,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:194",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3469,23 +2521,32 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 51
+        "w": 8,
+        "x": 0,
+        "y": 126
       },
-      "id": 66,
+      "hiddenSeries": false,
+      "id": 62,
       "legend": {
-        "alignAsTable": true,
+        "alignAsTable": false,
         "avg": false,
         "current": false,
         "max": true,
         "min": false,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "total": false,
         "values": true
@@ -3493,15 +2554,16 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
+      "pluginVersion": "7.1.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
+      "repeat": "node",
+      "repeatDirection": "h",
       "seriesOverrides": [
         {
+          "$$hashKey": "object:199",
           "alias": "Total",
           "color": "#F2495C",
           "dashes": true,
@@ -3512,6 +2574,7 @@
           "stack": false
         },
         {
+          "$$hashKey": "object:200",
           "alias": "Total CPU Runtime",
           "fill": 0,
           "stack": false
@@ -3522,29 +2585,33 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*logger\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*logger\"})))",
+          "expr": "sum(rate(zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*[[node]][-0-9]*$\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*[[node]][-0-9]*$\"})))",
           "hide": false,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Plugin Hook",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(zeek_cpu_time_per_function_type_seconds{zeek_cluster=\"$cluster\", function_type=\"built-in function\", node=~\".*logger\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*logger\"})))",
+          "expr": "sum(rate(zeek_cpu_time_per_function_type_seconds{zeek_cluster=\"$cluster\", function_type=\"built-in function\", node=~\".*[[node]][-0-9]*$\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*[[node]][-0-9]*$\"})))",
           "hide": false,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "BIFs",
           "refId": "C"
         },
         {
-          "expr": "sum(rate(zeek_cpu_time_per_function_type_seconds{zeek_cluster=\"$cluster\", function_type=~\"(event|hook|script-land function)\", node=~\".*logger\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*logger\"})))",
+          "expr": "sum(rate(zeek_cpu_time_per_function_type_seconds{zeek_cluster=\"$cluster\", function_type=~\"(event|hook|script-land function)\", node=~\".*[[node]][-0-9]*$\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*[[node]][-0-9]*$\"})))",
           "hide": false,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Scripts",
           "refId": "B"
         },
         {
-          "expr": "sum(rate(zeek_total_cpu_time_seconds{zeek_cluster=\"$cluster\", exported_type=\"cpu_time\", node=~\".*logger\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*logger\"})))",
+          "expr": "sum(rate(zeek_total_cpu_time_seconds{zeek_cluster=\"$cluster\", exported_type=\"cpu_time\", node=~\".*[[node]][-0-9]*$\"}[$__interval])) / scalar(count(count by (node) (zeek_hook_cpu_time_seconds{zeek_cluster=\"$cluster\", node=~\".*[[node]][-0-9]*$\"})))",
           "hide": false,
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Total CPU Runtime",
           "refId": "E"
@@ -3562,7 +2629,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Total Runtime by Function Type [Logger]",
+      "title": "Total Runtime by Function Type ($node)",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -3578,6 +2645,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:227",
           "decimals": null,
           "format": "s",
           "label": null,
@@ -3587,6 +2655,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:228",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -3601,8 +2670,8 @@
       }
     }
   ],
-  "refresh": false,
-  "schemaVersion": 19,
+  "refresh": "30s",
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -3621,6 +2690,28 @@
         "query": "label_values(zeek_start_time_seconds{exported_type=\"plugin_start_time\"}, zeek_cluster)",
         "refresh": 1,
         "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": ".*",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS.EXAMPLE.NET}",
+        "definition": "label_values(zeek_start_time_seconds{exported_type=\"plugin_start_time\", zeek_cluster=\"$cluster\"}, node)",
+        "hide": 2,
+        "includeAll": true,
+        "label": "Node Type",
+        "multi": false,
+        "name": "node",
+        "options": [],
+        "query": "label_values(zeek_start_time_seconds{exported_type=\"plugin_start_time\", zeek_cluster=\"$cluster\"}, node)",
+        "refresh": 1,
+        "regex": "/([^-0-9]+)[0-9]*$/",
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": "",
@@ -3652,5 +2743,5 @@
   "timezone": "",
   "title": "Zeek Cluster Health",
   "uid": "X0C7hacWz",
-  "version": 1
+  "version": 339
 }
