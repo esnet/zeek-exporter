@@ -27,10 +27,10 @@ jobs:
       run: apt install -y libcurl4-openssl-dev
 
     - name: Test with zkg
-      run: PATH=/usr/local/zeek/bin:$PATH zkg test https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA} || ( cat /github/home/.zkg/testing/zeek-exporter.git/zkg.test_command*; exit 1 )
+      run: PATH=/usr/local/zeek/bin:$PATH zkg test https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA} || ( cat /github/home/.zkg/testing/zeek-exporter.git/clones/zeek-exporter.git/zkg.test_command*; exit 1 )
 
     - name: Install with zkg
-      run: PATH=/usr/local/zeek/bin:$PATH zkg install --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}
+      run: PATH=/usr/local/zeek/bin:$PATH zkg install --skiptests --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}
 
   test_centos_8:
     name: CentOS 8 with Zeek ${{ matrix.zeek }}
@@ -48,7 +48,7 @@ jobs:
       run: yum install -y libcurl-devel
 
     - name: Test with zkg
-      run: PATH=/usr/local/zeek/bin:$PATH zkg test https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA} || ( cat /github/home/.zkg/testing/zeek-exporter.git/zkg.test_command*; exit 1 )
+      run: PATH=/usr/local/zeek/bin:$PATH zkg test https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA} || ( cat /github/home/.zkg/testing/zeek-exporter.git/clones/zeek-exporter.git/zkg.test_command*; exit 1 )
 
     - name: Install with zkg
-      run: PATH=/usr/local/zeek/bin:$PATH zkg install --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}
+      run: PATH=/usr/local/zeek/bin:$PATH zkg install --skiptests --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}
