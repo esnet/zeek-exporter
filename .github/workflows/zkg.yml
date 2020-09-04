@@ -6,6 +6,8 @@ name: Other Distros
 on:
   push:
   pull_request:
+  schedule:
+    - cron:  '30 8 * * *'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
