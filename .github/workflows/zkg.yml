@@ -37,6 +37,9 @@ jobs:
     - name: Install with zkg
       run: PATH=/usr/local/zeek/bin:$PATH zkg install --skiptests --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}
 
+    - name: Debug 0
+      run: ZEEK_PLUGIN_ACTIVATE=esnet::zeek_exporter PATH=/usr/local/zeek/bin:$PATH zeek -b -NN
+
     - name: Debug 1
       run: PATH=/usr/local/zeek/bin:$PATH zeek -h
 
