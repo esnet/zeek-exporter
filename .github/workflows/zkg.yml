@@ -32,6 +32,11 @@ jobs:
     - name: Install with zkg
       run: PATH=/usr/local/zeek/bin:$PATH zkg install --skiptests --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}
 
+    - uses: actions/checkout@v1
+
+    - name: Run tests on installed package
+      run:  ${GITHUB_WORKSPACE}/.ci_scripts/test.sh
+
   test_centos_8:
     name: CentOS 8 with Zeek ${{ matrix.zeek }}
     runs-on: ubuntu-20.04
@@ -52,3 +57,8 @@ jobs:
 
     - name: Install with zkg
       run: PATH=/usr/local/zeek/bin:$PATH zkg install --skiptests --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}
+
+    - uses: actions/checkout@v1
+
+    - name: Run tests on installed package
+      run: ${GITHUB_WORKSPACE}/.ci_scripts/test.sh
