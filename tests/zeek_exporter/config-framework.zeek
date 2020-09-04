@@ -1,9 +1,8 @@
 # @TEST-PORT: ZEEK_EXPORTER_PORT
-# @TEST-EXEC: export ZEEK_EXPORTER_PORT=$(echo $ZEEK_EXPORTER_PORT | sed -e 's/\/.*//')
 # @TEST-EXEC: if ! command -v zeek; then alias zeek bro; fi
 # @TEST-EXEC: btest-bg-run zeek zeek -b %INPUT
-# @TEST-EXEC: sleep 3
-# @TEST-EXEC: curl 127.0.0.1:$ZEEK_EXPORTER_PORT/metrics | grep Sometimes || ( curl 127.0.0.1:$ZEEK_EXPORTER_PORT/metrics | grep net_weird 1>&2; exit 1 )
+# @TEST-EXEC: sleep 4
+# @TEST-EXEC: curl 127.0.0.1:${ZEEK_EXPORTER_PORT/tcp/metrics} | grep Sometimes || ( curl 127.0.0.1:${ZEEK_EXPORTER_PORT/tcp/metrics} | grep net_weird 1>&2; exit 1 )
 # @TEST-EXEC: btest-bg-wait -k 2
 
 @load base/frameworks/notice/weird
