@@ -29,3 +29,6 @@ jobs:
 
     - name: Test
       run: $GITHUB_WORKSPACE/.ci_scripts/test.sh
+
+    - name: Install with zkg
+      run: $GITHUB_WORKSPACE/.ci_scripts/zkg.sh

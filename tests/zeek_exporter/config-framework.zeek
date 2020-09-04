@@ -1,4 +1,5 @@
 # @TEST-PORT: ZEEK_EXPORTER_PORT
+# @TEST-EXEC: export ZEEK_EXPORTER_PORT=$(echo $ZEEK_EXPORTER_PORT | sed -e 's/\/.*//')
 # @TEST-EXEC: if ! command -v zeek; then alias zeek bro; fi
 # @TEST-EXEC: btest-bg-run zeek zeek -b %INPUT
 # @TEST-EXEC: sleep 3

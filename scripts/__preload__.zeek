@@ -12,7 +12,7 @@ export {
 
 	## The port that the exporter will bind to
 @if ( getenv("ZEEK_EXPORTER_PORT") != "" )
-	const bind_port = count_to_port(to_count(getenv("ZEEK_EXPORTER_PORT")), tcp) &redef; # Use the env var if we have it
+	const bind_port = count_to_port(to_count(split_string1(getenv("ZEEK_EXPORTER_PORT"), /\//)[0]), tcp) &redef; # Use the env var if we have it
 @else
 	@if ( ! reading_live_traffic() )
 	const bind_port = count_to_port(1024 + rand(64500), tcp) &redef; # If we're not running on live traffic, use a random port
