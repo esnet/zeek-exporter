@@ -21,6 +21,7 @@ event Input::end_of_data(name: string, source: string)
 	if ( name == "arg_func_input" )
 		for ( name in Exporter::arg_functions )
 			Exporter::update_arg_functions(name, Exporter::arg_functions[name]$arg, Exporter::arg_functions[name]$addl);
+		}
 
 	schedule 2 sec { gen_weird() };
 	}
