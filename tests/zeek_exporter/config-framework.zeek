@@ -1,7 +1,7 @@
 1# @TEST-EXEC: if ! command -v zeek; then alias zeek bro; fi
 # @TEST-EXEC: btest-bg-run zeek zeek -b %INPUT
 # @TEST-EXEC: sleep 3
-# @TEST-EXEC: curl 127.0.0.1:45713/metrics | grep Sometimes || ( curl 127.0.0.1:45713/metrics; exit 1 )
+# @TEST-EXEC: curl 127.0.0.1:45713/metrics | grep Sometimes || ( curl 127.0.0.1:45713/metrics 1>&2; exit 1 )
 # @TEST-EXEC: btest-bg-wait -k 2
 
 @load base/frameworks/notice/weird
