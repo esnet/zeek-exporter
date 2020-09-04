@@ -1,0 +1,48 @@
+# This workflow will execute the accompanying btests
+
+name: Other Distros
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+on:
+  push:
+  pull_request:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test_ubuntu:
+    name: Ubuntu ${{ matrix.distro_version }} with Zeek ${{ matrix.zeek }}
+    runs-on: ubuntu-20.04
+    container: grigorescu/zeek_ubuntu_${{ matrix.distro_version }}:${{ matrix.zeek }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        zeek: ["v3.0", "v3.1", "v3.2", "v3.3", "latest"]
+        distro_version: ["18", "20"]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: Install prereqs
+      run: apt install -y libcurl4-openssl-dev
+
+    - name: Install with zkg
+      run: PATH=/usr/local/zeek/bin:$PATH zkg install --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}
+
+  test_centos_8:
+    name: CentOS 8 with Zeek ${{ matrix.zeek }}
+    runs-on: ubuntu-20.04
+    container: grigorescu/zeek_centos_8:${{ matrix.zeek }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        zeek: ["v3.0", "v3.1", "v3.2", "v3.3", "latest"]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Install prereqs
+      run: yum install -y libcurl-devel
+
+    - name: Install with zkg
+      run: PATH=/usr/local/zeek/bin:$PATH zkg install --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}
