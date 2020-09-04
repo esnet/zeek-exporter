@@ -4,6 +4,4 @@ set -e
 
 export PATH=/usr/local/zeek/bin:$PATH
 
-cd $GITHUB_WORKSPACE
-
-zkg install --force .
+zkg install --force https://github.com${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}

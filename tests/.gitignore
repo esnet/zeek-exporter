@@ -1,2 +1,4 @@
 .btest.failed.dat
+.btest_output.xml
+diag.log
 .tmp

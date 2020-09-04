@@ -23,18 +23,11 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v1
-      with:
-        submodules: recursive
-
     - name: Install prereqs
       run: apt install -y libcurl4-openssl-dev
 
-    - name: Install
-      run: $GITHUB_WORKSPACE/.ci_scripts/install.sh
-
-    - name: Test
-      run: $GITHUB_WORKSPACE/.ci_scripts/test.sh
+    - name: Install with zkg
+      run: $GITHUB_WORKSPACE/.ci_scripts/zkg.sh
 
   test_centos_8:
     name: CentOS 8 with Zeek ${{ matrix.zeek }}
@@ -48,16 +41,8 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v1
-      with:
-        submodules: recursive
-
     - name: Install prereqs
       run: yum install -y libcurl-devel
 
-    - name: Install
-      run: $GITHUB_WORKSPACE/.ci_scripts/install.sh
-
-    - name: Test
-      run: $GITHUB_WORKSPACE/.ci_scripts/test.sh
+    - name: Install with zkg
+      run: $GITHUB_WORKSPACE/.ci_scripts/zkg.sh

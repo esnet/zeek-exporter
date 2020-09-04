@@ -1,16 +1,0 @@
-zeek_exporter.test-exporter-running ... failed
-  % 'sleep 3; curl 127.0.0.1:45713/metrics | cut -f 1 -d '{' | sort | uniq | grep -v '#' | grep zeek_ > metrics' failed unexpectedly (exit code 1)
-  % cat .stderr
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-    0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-  curl: (7) Failed to connect to 127.0.0.1 port 45713: Connection refused
-
-zeek_exporter.config-framework ... failed
-  % 'curl 127.0.0.1:45713/metrics | grep args' failed unexpectedly (exit code 1)
-  % cat .stderr
-    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                   Dload  Upload   Total   Spent    Left  Speed
-    0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-  curl: (7) Failed to connect to 127.0.0.1 port 45713: Connection refused
-

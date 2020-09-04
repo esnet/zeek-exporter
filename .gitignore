@@ -1,5 +1,8 @@
 # Zeek things
 build/**
+cmake
+tests/.btest_output.xml
+tests/diag.log
 
 # Prerequisites
 *.d
