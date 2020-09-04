@@ -4,6 +4,8 @@
 # @TEST-EXEC: btest-bg-wait -k 2
 # @TEST-EXEC: btest-diff metrics
 
+@load base/frameworks/notice/weird
+
 redef exit_only_after_terminate=T;
 
 @ifdef ( zeek_init )
