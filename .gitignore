@@ -1,3 +1,6 @@
+# Zeek things
+build/**
+
 # Prerequisites
 *.d
 
