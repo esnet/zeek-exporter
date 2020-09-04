@@ -1,6 +1,6 @@
 # This workflow will execute the accompanying btests
 
-name: btest CI
+name: Other Distros
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 on:
@@ -31,14 +31,10 @@ jobs:
       run: apt install -y libcurl4-openssl-dev
 
     - name: Install
-      run: |
-        export PATH=/usr/local/zeek/bin:$PATH
-        cd $GITHUB_WORKSPACE; ./configure && make && make install
+      run: $GITHUB_WORKSPACE/.ci_scripts/install.sh
 
     - name: Test
-      run: |
-        export PATH=/usr/local/zeek/bin:$PATH
-        cd $GITHUB_WORKSPACE/tests; make
+      run: $GITHUB_WORKSPACE/.ci_scripts/test.sh
 
   test_centos_8:
     name: CentOS 8 with Zeek ${{ matrix.zeek }}
@@ -61,11 +57,7 @@ jobs:
       run: yum install -y libcurl-devel
 
     - name: Install
-      run: |
-        export PATH=/usr/local/zeek/bin:$PATH
-        cd $GITHUB_WORKSPACE; ./configure && make && make install
+      run: $GITHUB_WORKSPACE/.ci_scripts/install.sh
 
     - name: Test
-      run: |
-        export PATH=/usr/local/zeek/bin:$PATH
-        cd $GITHUB_WORKSPACE/tests; make
+      run: $GITHUB_WORKSPACE/.ci_scripts/test.sh

@@ -25,11 +25,7 @@ jobs:
       run: yum install -y libcurl-devel
 
     - name: Install
-      run: |
-        export PATH=/usr/local/zeek/bin:$PATH
-        cd $GITHUB_WORKSPACE; echo "./configure && make && make install" | scl enable devtoolset-7 - || ./configure && make && make install
+      run: $GITHUB_WORKSPACE/.ci_scripts/install.sh
 
     - name: Test
-      run: |
-        export PATH=/usr/local/zeek/bin:$PATH
-        cd $GITHUB_WORKSPACE/tests; scl enable devtoolset-7 make || make
+      run: $GITHUB_WORKSPACE/.ci_scripts/test.sh
