@@ -2,6 +2,9 @@
 # @TEST-EXEC: $ZEEK -b %INPUT
 # @TEST-EXEC: btest-diff weird.log
 
+# To support 2.6
+redef peer_description = "zeek";
+
 @load base/frameworks/notice/weird
 
 @ifdef ( zeek_init )
