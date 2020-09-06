@@ -1,4 +1,3 @@
-
 cmake_minimum_required(VERSION 2.8)
 
 project(ZeekPluginZeek_Exporter)
@@ -8,6 +7,7 @@ include(BroPlugin)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 add_subdirectory(3rdparty/prometheus-cpp)
 
+set(ENABLE_TESTING OFF CACHE BOOL "Build tests")
 include_directories(BEFORE ${prometheus-cpp_INCLUDE_DIR})
 
 bro_plugin_begin(ESnet Zeek_Exporter)
