@@ -18,8 +18,7 @@ bro_plugin_link_library(prometheus-cpp::pull)
 bro_plugin_dist_files(README CHANGES COPYING VERSION)
 bro_plugin_end()
 
-target_compile_options(ESnet-Zeek_Exporter.darwin-x86_64 PRIVATE -Wno-deprecated-declarations)
-
+target_compile_options(${_plugin_lib} PRIVATE -Wno-deprecated-declarations)
 file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" VERSION LIMIT_COUNT 1)
 
 if ("${PROJECT_SOURCE_DIR}" STREQUAL "${CMAKE_SOURCE_DIR}")
