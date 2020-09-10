@@ -114,7 +114,7 @@ unsigned long Plugin::ScopeVariableSize(bool track_vars)
             {
             auto bytes = value->ID_Val()->MemoryAllocation();
             var_size += bytes;
-            if ( track_vars )
+            if ( track_vars && bytes >= 1048576 )
                 zeek_var_size_bytes.Add({{"name", value->Name()}, {"module", value->ModuleName()}}).Set(bytes);
             }
         }
