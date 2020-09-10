@@ -110,7 +110,7 @@ unsigned long Plugin::ScopeVariableSize(bool track_vars)
         std::string varname = it->first;
         auto value = it->second;
         it++;
-        if ( value->HasVal() )
+        if ( value->HasVal() && !value->IsConst() )
             {
             auto bytes = value->ID_Val()->MemoryAllocation();
             var_size += bytes;
