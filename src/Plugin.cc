@@ -53,7 +53,7 @@ plugin::Configuration Plugin::Configure()
     config.name = plugin_name;
     config.description = "Prometheus exporter for Zeek";
     config.version.major = 0;
-    config.version.minor = 1;
+    config.version.minor = 2;
 
     // We want to track functions even if they get handled by another hook, so high priority here
     EnableHook(HOOK_CALL_FUNCTION, 1000001);
