@@ -95,7 +95,7 @@ void Plugin::AddlArgumentPopulation(const char * name, val_list* args, std::map<
 }
 
 
-std::pair<bool, ValPtr> Plugin::HookCallFunction(const Func* func, Frame* frame, val_list* args)
+std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, val_list* args)
 {
     // Without this, we'll recurse indefinitely
     if ( func == current_func ) {
@@ -131,7 +131,7 @@ std::pair<bool, ValPtr> Plugin::HookCallFunction(const Func* func, Frame* frame,
     own_handler = true;
     current_func = func;
     auto start = std::chrono::steady_clock::now();
-    ValPtr result = func->func_call(args, frame);
+    Val* result = func->Call(args, frame);
     auto stop = std::chrono::steady_clock::now();
     current_func = nullptr;
     own_handler = false;

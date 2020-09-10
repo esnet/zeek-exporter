@@ -11,14 +11,6 @@
 #include <plugin/Plugin.h>
 #include "zeek_exporter.bif.h"
 
-#ifdef zeek::ValPtr
-#define func_call Invoke
-#define ValPtr zeek::ValPtr
-#else
-#define ValPtr Val*
-#define func_call Call
-#endif
-
 namespace plugin {
     namespace ESnet_Zeek_Exporter {
 
@@ -32,7 +24,7 @@ namespace plugin {
         protected:
             // Overridden from plugin::Plugin.
             plugin::Configuration Configure() override;
-            std::pair<bool, ValPtr> HookCallFunction(const Func* func, Frame* frame, val_list* args) override;
+            std::pair<bool, Val*> HookCallFunction(const Func* func, Frame* frame, val_list* args) override;
             bool HookLogWrite(const std::string& writer, const std::string& filter, const logging::WriterBackend::WriterInfo& info, int num_fields, const threading::Field* const* fields, threading::Value** vals) override;
             void MetaHookPre(HookType hook, const HookArgumentList& args) override;
             void MetaHookPost(HookType hook, const HookArgumentList& args, HookArgument result) override;
