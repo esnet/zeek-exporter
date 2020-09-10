@@ -1,7 +1,9 @@
 # @TEST-PORT: ZEEK_EXPORTER_PORT
-# @TEST-EXEC: if ! command -v zeek; then alias zeek bro; fi
-# @TEST-EXEC: zeek -b %INPUT
+# @TEST-EXEC: $ZEEK -b %INPUT
 # @TEST-EXEC: btest-diff weird.log
+
+# To support 2.6
+redef peer_description = "zeek";
 
 @load base/frameworks/notice/weird
 

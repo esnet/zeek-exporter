@@ -1,6 +1,5 @@
 # @TEST-PORT: ZEEK_EXPORTER_PORT
-# @TEST-EXEC: if ! command -v zeek; then alias zeek bro; fi
-# @TEST-EXEC: btest-bg-run zeek zeek -b %INPUT
+# @TEST-EXEC: btest-bg-run zeek $ZEEK -b %INPUT
 # @TEST-EXEC: sleep 4
 # @TEST-EXEC: bash -c 'curl 127.0.0.1:${ZEEK_EXPORTER_PORT/tcp/metrics} | grep Sometimes || ( curl 127.0.0.1:${ZEEK_EXPORTER_PORT/tcp/metrics} | grep net_weird 1>&2; exit 1 )'
 # @TEST-EXEC: btest-bg-wait -k 2

@@ -2,7 +2,7 @@
 
 set -e
 
-export PATH=/usr/local/zeek/bin:$PATH
+export PATH=/usr/local/zeek/bin:/usr/local/bro/bin:$PATH
 
 cd $GITHUB_WORKSPACE
 

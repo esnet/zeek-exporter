@@ -14,7 +14,7 @@ jobs:
   test_centos_7:
     name: CentOS 7 with Zeek 3.3
     runs-on: ubuntu-20.04
-    container: grigorescu/zeek_centos_7:v3.3
+    container: grigorescu/zeek_centos_7:preview
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

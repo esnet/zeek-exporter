@@ -1,6 +1,6 @@
 # This workflow will execute the accompanying btests
 
-name: Zeek 3.1
+name: Zeek 2.6
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 on:
@@ -12,9 +12,9 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   test_centos_7:
-    name: CentOS 7 with Zeek 3.1
+    name: CentOS 7 with Zeek 2.6
     runs-on: ubuntu-20.04
-    container: grigorescu/zeek_centos_7:3.1
+    container: grigorescu/zeek_centos_7:2.6
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:

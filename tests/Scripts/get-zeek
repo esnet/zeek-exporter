@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if command -v zeek > /dev/null 2>&1; then
+   which zeek
+   exit
+else
+   which bro
+fi

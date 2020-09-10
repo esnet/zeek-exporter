@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        zeek: ["v3.0", "v3.1", "v3.2", "v3.3", "latest"]
+        zeek: ["2.6", "3.0", "3.1", "3.2", "preview", "latest"]
         distro_version: ["18", "20"]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -29,13 +29,13 @@ jobs:
       run: apt install -y libcurl4-openssl-dev
 
     - name: zkg autoconfig
-      run: PATH=/usr/local/zeek/bin:$PATH zkg autoconfig
+      run: PATH=/usr/local/zeek/bin:/usr/local/bro/bin:$PATH zkg autoconfig
 
     - name: Test with zkg
-      run: PATH=/usr/local/zeek/bin:$PATH zkg test https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA} || ( cat /github/home/.zkg/testing/zeek-exporter.git/clones/zeek-exporter.git/zkg.test_command*; exit 1 )
+      run: PATH=/usr/local/zeek/bin:/usr/local/bro/bin:$PATH zkg test https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA} || ( cat /github/home/.zkg/testing/zeek-exporter.git/clones/zeek-exporter.git/zkg.test_command*; exit 1 )
 
     - name: Install with zkg
-      run: PATH=/usr/local/zeek/bin:$PATH zkg install --skiptests --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}
+      run: PATH=/usr/local/zeek/bin:/usr/local/bro/bin:$PATH zkg install --skiptests --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}
 
   test_centos_8:
     name: CentOS 8 with Zeek ${{ matrix.zeek }}
@@ -45,7 +45,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        zeek: ["v3.0", "v3.1", "v3.2", "v3.3", "latest"]
+        zeek: ["2.6", "3.0", "3.1", "3.2", "preview", "latest"]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -53,10 +53,10 @@ jobs:
       run: yum install -y libcurl-devel
 
     - name: zkg autoconfig
-      run: PATH=/usr/local/zeek/bin:$PATH zkg autoconfig
+      run: PATH=/usr/local/zeek/bin:/usr/local/bro/bin:$PATH zkg autoconfig
 
     - name: Test with zkg
-      run: PATH=/usr/local/zeek/bin:$PATH zkg test https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA} || ( cat /github/home/.zkg/testing/zeek-exporter.git/clones/zeek-exporter.git/zkg.test_command*; exit 1 )
+      run: PATH=/usr/local/zeek/bin:/usr/local/bro/bin:$PATH zkg test https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA} || ( cat /github/home/.zkg/testing/zeek-exporter.git/clones/zeek-exporter.git/zkg.test_command*; exit 1 )
 
     - name: Install with zkg
-      run: PATH=/usr/local/zeek/bin:$PATH zkg install --skiptests --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}
+      run: PATH=/usr/local/zeek/bin:/usr/local/bro/bin:$PATH zkg install --skiptests --force https://github.com/${GITHUB_REPOSITORY}.git --version ${GITHUB_SHA}

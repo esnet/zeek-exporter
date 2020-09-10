@@ -9,7 +9,6 @@
 #include <prometheus/registry.h>
 
 #include <plugin/Plugin.h>
-
 #include "zeek_exporter.bif.h"
 
 namespace plugin {
@@ -107,6 +106,13 @@ namespace plugin {
             prometheus::Family<prometheus::Counter>& zeek_cpu_time_per_function_seconds = prometheus::BuildCounter()
                     .Name("zeek_cpu_time_per_function_seconds")
                     .Help("The amount of time spent in Zeek functions. Measured in seconds.")
+                    .Labels({{"node", node_name}})
+                    .Register(*registry);
+
+            // The number of seconds spent in each script's functions. This is total time (including children).
+            prometheus::Family<prometheus::Counter>& zeek_cpu_time_per_script_seconds = prometheus::BuildCounter()
+                    .Name("zeek_cpu_time_per_script_seconds")
+                    .Help("The amount of time spent in each scripts' functions. Measured in seconds.")
                     .Labels({{"node", node_name}})
                     .Register(*registry);
 
