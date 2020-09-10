@@ -7,3 +7,5 @@ zeek_hooks_total
 zeek_log_writes_total
 zeek_start_time_seconds
 zeek_total_cpu_time_seconds
+zeek_var_size_bytes
+zeek_var_size_per_function_bytes

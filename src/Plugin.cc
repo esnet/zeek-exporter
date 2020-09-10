@@ -7,6 +7,7 @@
 #include <Event.h>
 #include <Func.h>
 #include <Reporter.h>
+#include <Scope.h>
 
 #include "Plugin.h"
 
@@ -95,8 +96,34 @@ void Plugin::AddlArgumentPopulation(const char * name, val_list* args, std::map<
 }
 
 
+unsigned long Plugin::ScopeVariableSize(bool track_vars)
+    {
+    Scope* scope = current_scope();
+    if ( !scope || scope->Length() == 0 )
+        return 0;
+
+    unsigned long var_size = 0;
+
+    auto it = scope->Vars().begin();
+    while (it != scope->Vars().end())
+        {
+        std::string varname = it->first;
+        auto value = it->second;
+        it++;
+        if ( value->HasVal() )
+            {
+            auto bytes = value->ID_Val()->MemoryAllocation();
+            var_size += bytes;
+            if ( track_vars )
+                zeek_var_size_bytes.Add({{"name", value->Name()}, {"module", value->ModuleName()}}).Set(bytes);
+            }
+        }
+
+    return var_size;
+    }
+
 std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, val_list* args)
-{
+    {
     // Without this, we'll recurse indefinitely
     if ( func == current_func ) {
         return {false, NULL};
@@ -131,8 +158,10 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
     own_handler = true;
     current_func = func;
     auto start = std::chrono::steady_clock::now();
+    auto pre_variable_size = ScopeVariableSize(false);
     Val* result = func->Call(args, frame);
     auto stop = std::chrono::steady_clock::now();
+    auto post_variable_size = ScopeVariableSize(true);
     current_func = nullptr;
     own_handler = false;
 
@@ -186,7 +215,8 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
         labels.insert({"function_caller", lineage[lineage.size() - 2]});
     }
     zeek_function_calls_total.Add(labels).Increment();
-
+    if ( post_variable_size - pre_variable_size != 0 )
+        zeek_var_size_per_function_bytes.Add(labels).Increment(post_variable_size - pre_variable_size );
     zeek_cpu_time_per_function_seconds.Add(labels).Increment(last_function_duration.count() / 1000000.0);
     zeek_absolute_cpu_time_per_function_seconds.Add(labels).Increment((last_function_duration.count() - children_duration) / 1000000.0);
 

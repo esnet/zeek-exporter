@@ -1,3 +1,2 @@
 # @TEST-PORT: ZEEK_EXPORTER_PORT
 # @TEST-EXEC: $ZEEK -b -NN | grep Exporter
-# @TEST-EXEC: $ZEEK -a
