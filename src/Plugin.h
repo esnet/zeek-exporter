@@ -31,7 +31,6 @@ namespace plugin {
 
         private:
             void AddlArgumentPopulation(const char * name, val_list* args, std::map<std::string, std::string>& labels);
-            unsigned long ScopeVariableSize(bool track_vars);
 
             const char* plugin_name = "ESnet::Zeek_Exporter";
             const char* node_name = getenv("CLUSTER_NODE") ? getenv("CLUSTER_NODE") : "standalone";
@@ -110,17 +109,10 @@ namespace plugin {
                     .Labels({{"node", node_name}})
                     .Register(*registry);
 
-            // The total size of all variables in each function, by function type, function name and function_caller.
-            prometheus::Family<prometheus::Gauge>& zeek_var_size_per_function_bytes = prometheus::BuildGauge()
-                    .Name("zeek_var_size_per_function_bytes")
-                    .Help("The amount of memory usage of variables in Zeek functions. Measured in bytes.")
-                    .Labels({{"node", node_name}})
-                    .Register(*registry);
-
-            // The size of all variables in bytes, by variable name and scope.
-            prometheus::Family<prometheus::Gauge>& zeek_var_size_bytes = prometheus::BuildGauge()
-                    .Name("zeek_var_size_bytes")
-                    .Help("The amount of memory usage of variables. Measured in bytes.")
+            // The number of seconds spent in each script's functions. This is total time (including children).
+            prometheus::Family<prometheus::Counter>& zeek_cpu_time_per_script_seconds = prometheus::BuildCounter()
+                    .Name("zeek_cpu_time_per_script_seconds")
+                    .Help("The amount of time spent in each scripts' functions. Measured in seconds.")
                     .Labels({{"node", node_name}})
                     .Register(*registry);
 

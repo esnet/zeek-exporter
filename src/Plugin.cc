@@ -3,11 +3,13 @@
 
 #include <prometheus/exposer.h>
 #include <prometheus/registry.h>
+
+#pragma GCC diagnostic ignored "-W#warnings"
 #include <BroString.h>
+
 #include <Event.h>
 #include <Func.h>
 #include <Reporter.h>
-#include <Scope.h>
 
 #include "Plugin.h"
 
@@ -96,38 +98,24 @@ void Plugin::AddlArgumentPopulation(const char * name, val_list* args, std::map<
 }
 
 
-unsigned long Plugin::ScopeVariableSize(bool track_vars)
-    {
-    Scope* scope = current_scope();
-    if ( !scope || scope->Length() == 0 )
-        return 0;
-
-    unsigned long var_size = 0;
-
-    auto it = scope->Vars().begin();
-    while (it != scope->Vars().end())
-        {
-        std::string varname = it->first;
-        auto value = it->second;
-        it++;
-        if ( value->HasVal() && !value->IsConst() )
-            {
-            auto bytes = value->ID_Val()->MemoryAllocation();
-            var_size += bytes;
-            if ( track_vars && bytes >= 1048576 )
-                zeek_var_size_bytes.Add({{"name", value->Name()}, {"module", value->ModuleName()}}).Set(bytes);
-            }
-        }
-
-    return var_size;
-    }
-
 std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, val_list* args)
     {
     // Without this, we'll recurse indefinitely
     if ( func == current_func ) {
         return {false, NULL};
     }
+    // Since we're handling the function call, we need to increase the ref count on the arguments
+    for ( int i = 0; i < args->length(); ++i )
+        Ref((*args)[i]);
+
+    // Set our indicators, measure the runtime, and call the function.
+    own_handler = true;
+    current_func = func;
+    auto start = std::chrono::steady_clock::now();
+    Val* result = func->Call(args, frame);
+    auto stop = std::chrono::steady_clock::now();
+    current_func = nullptr;
+    own_handler = false;
 
     // We create a new variable, because children will increase this
     size_t my_func_depth = func_depth;
@@ -146,24 +134,9 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
             labels = {{"function_type", "hook"}};
             break;
         default:
-            labels = {{}};
+            labels = {{"function_type", "unknown"}};
             break;
     }
-
-    // Since we're handling the function call, we need to increase the ref count on the arguments
-    for ( int i = 0; i < args->length(); ++i )
-        Ref((*args)[i]);
-
-    // Set our indicators, measure the runtime, and call the function.
-    own_handler = true;
-    current_func = func;
-    auto start = std::chrono::steady_clock::now();
-    auto pre_variable_size = ScopeVariableSize(false);
-    Val* result = func->Call(args, frame);
-    auto stop = std::chrono::steady_clock::now();
-    auto post_variable_size = ScopeVariableSize(true);
-    current_func = nullptr;
-    own_handler = false;
 
     std::chrono::microseconds duration;
 
@@ -194,6 +167,7 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
 
     // We keep a running total, without function name & caller labels
     zeek_function_calls_total.Add(labels).Increment();
+    zeek_cpu_time_per_script_seconds.Add({{"script", func->GetLocationInfo()->filename}}).Increment(last_function_duration.count());
     zeek_cpu_time_per_function_type_seconds.Add(labels).Increment((last_function_duration.count() - children_duration) / 1000000.0);
 
     // Now we add our metadata and store it again, with the label(s)
@@ -215,8 +189,6 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
         labels.insert({"function_caller", lineage[lineage.size() - 2]});
     }
     zeek_function_calls_total.Add(labels).Increment();
-    if ( post_variable_size - pre_variable_size != 0 )
-        zeek_var_size_per_function_bytes.Add(labels).Increment(post_variable_size - pre_variable_size );
     zeek_cpu_time_per_function_seconds.Add(labels).Increment(last_function_duration.count() / 1000000.0);
     zeek_absolute_cpu_time_per_function_seconds.Add(labels).Increment((last_function_duration.count() - children_duration) / 1000000.0);
 
