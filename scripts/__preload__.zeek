@@ -38,7 +38,7 @@ function update_arg_functions(name: string, arg: int, addl: int)
 	}
 
 # Incremement the port for each cluster member
-@if ( Cluster::is_enabled() && Cluster::node in Cluster::nodes && "control" in Cluster::nodes )
+@if ( Cluster::is_enabled() && Cluster::node in Cluster::nodes && "control" in Cluster::nodes && Cluster::node != "control" )
 redef bind_port = count_to_port(port_to_count(Cluster::nodes[Cluster::node]$p) - port_to_count(Cluster::nodes["control"]$p) + port_to_count(base_port), tcp);
 @endif
 
