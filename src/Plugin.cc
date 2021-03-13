@@ -4,8 +4,7 @@
 #include <prometheus/exposer.h>
 #include <prometheus/registry.h>
 
-#pragma GCC diagnostic ignored "-W#warnings"
-#include <BroString.h>
+#include <ZeekString.h>
 
 #include <Event.h>
 #include <Func.h>
