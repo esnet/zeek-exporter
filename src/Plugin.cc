@@ -4,11 +4,11 @@
 #include <prometheus/exposer.h>
 #include <prometheus/registry.h>
 
-#include <ZeekString.h>
+#include <zeek/ZeekString.h>
 
-#include <Event.h>
-#include <Func.h>
-#include <Reporter.h>
+#include <zeek/Event.h>
+#include <zeek/Func.h>
+#include <zeek/Reporter.h>
 
 #include "Plugin.h"
 
@@ -31,43 +31,43 @@ void Plugin::InitPostScript()
     // Third-stage initialization
     zeek_total_cpu_time_seconds.Add({{"type", "InitPostScript"}}, (double) clock()/CLOCKS_PER_SEC);
 
-    const char* bind_ip = BifConst::Exporter::bind_address->AsAddr().AsString().c_str();
-    const uint32_t bind_port = BifConst::Exporter::bind_port->Port();
+    const char* bind_ip = zeek::BifConst::Exporter::bind_address->AsAddr().AsString().c_str();
+    const uint32_t bind_port = zeek::BifConst::Exporter::bind_port->Port();
 
     try
     {
-        exposer = std::make_shared<prometheus::Exposer>(fmt("%s:%d", bind_ip, bind_port));
+        exposer = std::make_shared<prometheus::Exposer>(zeek::util::fmt("%s:%d", bind_ip, bind_port));
         exposer->RegisterCollectable(registry);
         zeek_start_time_seconds.Add({{"type", "plugin_start_time"}}).Increment(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count());
     }
     catch ( const std::exception& )
     {
-        reporter->Warning("%s failed to bind to %s:%d", plugin_name, bind_ip, bind_port);
+        zeek::reporter->Warning("%s failed to bind to %s:%d", plugin_name, bind_ip, bind_port);
     }
 }
 
-plugin::Configuration Plugin::Configure()
+zeek::plugin::Configuration Plugin::Configure()
 {
-    plugin::Configuration config;
+    zeek::plugin::Configuration config;
     config.name = plugin_name;
     config.description = "Prometheus exporter for Zeek";
     config.version.major = 0;
     config.version.minor = 2;
 
     // We want to track functions even if they get handled by another hook, so high priority here
-    EnableHook(HOOK_CALL_FUNCTION, 1000001);
+    EnableHook(zeek::plugin::HOOK_CALL_FUNCTION, 1000001);
 
     // Default priority is fine here
-    EnableHook(META_HOOK_PRE);
-    EnableHook(META_HOOK_POST);
+    EnableHook(zeek::plugin::META_HOOK_PRE);
+    EnableHook(zeek::plugin::META_HOOK_POST);
 
     // We want to track these *after* other plugins get a chance to handle them, so low priority
-    EnableHook(HOOK_LOG_WRITE, -20);
+    EnableHook(zeek::plugin::HOOK_LOG_WRITE, -20);
 
     return config;
 }
 
-void Plugin::AddlArgumentPopulation(const char * name, val_list* args, std::map<std::string, std::string>& labels) {
+void Plugin::AddlArgumentPopulation(const char * name, zeek::Args* args, std::map<std::string, std::string>& labels) {
     int arg_offset = -1;
     int addl_offset = -1;
 
@@ -81,14 +81,14 @@ void Plugin::AddlArgumentPopulation(const char * name, val_list* args, std::map<
         }
     }
 
-    if ( arg_offset >= 0  && args->length() > arg_offset && IsString((*args)[arg_offset]->Type()->Tag()) )
+    if ( arg_offset >= 0  && args->size() > arg_offset && IsString((*args)[arg_offset]->GetType()->Tag()) )
     {
         const char* arg_str = (*args)[arg_offset]->AsString()->CheckString();
         if ( strlen(arg_str) )
             labels.insert({"arg", arg_str});
     }
 
-    if ( addl_offset >= 0 && args->length() > addl_offset && IsString((*args)[addl_offset]->Type()->Tag()) )
+    if ( addl_offset >= 0 && args->size() > addl_offset && IsString((*args)[addl_offset]->GetType()->Tag()) )
     {
         const char* addl_str = (*args)[addl_offset]->AsString()->CheckString();
         if ( strlen(addl_str) )
@@ -97,21 +97,21 @@ void Plugin::AddlArgumentPopulation(const char * name, val_list* args, std::map<
 }
 
 
-std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, val_list* args)
+std::pair<bool, zeek::ValPtr> Plugin::HookFunctionCall(const zeek::Func* func, zeek::detail::Frame* frame, zeek::Args* args)
     {
     // Without this, we'll recurse indefinitely
     if ( func == current_func ) {
         return {false, NULL};
     }
     // Since we're handling the function call, we need to increase the ref count on the arguments
-    for ( int i = 0; i < args->length(); ++i )
-        Ref((*args)[i]);
+    //    for ( int i = 0; i < args->size(); ++i )
+    //        zeek::Ref((*args)[i]);
 
     // Set our indicators, measure the runtime, and call the function.
     own_handler = true;
     current_func = func;
     auto start = std::chrono::steady_clock::now();
-    Val* result = func->Call(args, frame);
+    zeek::ValPtr result = func->Invoke(args, frame);
     auto stop = std::chrono::steady_clock::now();
     current_func = nullptr;
     own_handler = false;
@@ -123,13 +123,13 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
 
     switch ( func->Flavor() )
     {
-        case FUNC_FLAVOR_FUNCTION:
+        case zeek::FUNC_FLAVOR_FUNCTION:
             labels = {{"function_type", func->GetKind() ? "built-in function" : "script-land function"}};
             break;
-        case FUNC_FLAVOR_EVENT:
+        case zeek::FUNC_FLAVOR_EVENT:
             labels = {{"function_type", "event"}};
             break;
-        case FUNC_FLAVOR_HOOK:
+        case zeek::FUNC_FLAVOR_HOOK:
             labels = {{"function_type", "hook"}};
             break;
         default:
@@ -174,7 +174,7 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
     labels.insert({"name", func->Name()});
 
     // Grab some values for select events. Only bother if we have arguments, and if it's an event
-    if ( args->length() && func->Flavor() == FUNC_FLAVOR_EVENT )
+    if ( args->size() && func->Flavor() == zeek::FUNC_FLAVOR_EVENT )
     {
         start = std::chrono::steady_clock::now();
         AddlArgumentPopulation(name, args, labels);
@@ -192,7 +192,7 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
     zeek_absolute_cpu_time_per_function_seconds.Add(labels).Increment((last_function_duration.count() - children_duration) / 1000000.0);
 
     // We update the list of functions we want some arguments for.
-    if ( strcmp(name, "Exporter::update_arg_functions") == 0 && args->length() == 3 )
+    if ( strcmp(name, "Exporter::update_arg_functions") == 0 && args->size() == 3 )
     {
         int arg_val = (*args)[1]->AsInt();
         int addl_val = (*args)[2]->AsInt();
@@ -202,7 +202,7 @@ std::pair<bool, Val*> Plugin::HookCallFunction(const Func* func, Frame* frame, v
     return {true, result};
 }
 
-bool Plugin::HookLogWrite(const std::string& writer, const std::string& filter, const logging::WriterBackend::WriterInfo& info, int num_fields, const threading::Field* const* fields, threading::Value** vals)
+bool Plugin::HookLogWrite(const std::string& writer, const std::string& filter, const zeek::logging::WriterBackend::WriterInfo& info, int num_fields, const zeek::threading::Field* const* fields, zeek::threading::Value** vals)
 {
     std::map<std::string, std::string> labels = {{"type", "log_write"}, {"writer", writer}, {"filter", filter}};
     if ( info.path )
@@ -213,17 +213,17 @@ bool Plugin::HookLogWrite(const std::string& writer, const std::string& filter, 
 }
 
 
-void Plugin::MetaHookPre(HookType hook, const HookArgumentList& args)
+void Plugin::MetaHookPre(zeek::plugin::HookType hook, const zeek::plugin::HookArgumentList& args)
 {
     // This hook is our most common entrypoint, so we track overall CPU time here
     zeek_total_cpu_time_seconds.Add({{"type", "cpu_time"}}).Set((double) clock()/CLOCKS_PER_SEC);
 
-    if ( hook == HOOK_LOG_WRITE )
+    if ( hook == zeek::plugin::HOOK_LOG_WRITE )
         log_hook_start = std::chrono::steady_clock::now();
-    else if ( hook == HOOK_CALL_FUNCTION )
+    else if ( hook == zeek::plugin::HOOK_CALL_FUNCTION )
     {
         func_hook_starts.push(std::chrono::steady_clock::now());
-        const Func* func = args.front().AsFunc();
+        const zeek::Func* func = args.front().AsFunc();
         if ( func != current_func )
         {
             // Increase the depth, and append it to the lineage vector
@@ -235,14 +235,14 @@ void Plugin::MetaHookPre(HookType hook, const HookArgumentList& args)
         other_hook_start = std::chrono::steady_clock::now();
 }
 
-void Plugin::MetaHookPost(HookType hook, const HookArgumentList& args, HookArgument result)
+void Plugin::MetaHookPost(zeek::plugin::HookType hook, const zeek::plugin::HookArgumentList& args, zeek::plugin::HookArgument result)
 {
     // Grab the timestamp first, for increased accuracy
     auto hook_stop = std::chrono::steady_clock::now();
     std::map<std::string, std::string> labels = {{"hook", hook_name(hook)}};
 
     // The function call timing is rather complex, due to recursion. Handle the easy log writes first.
-    if ( hook == HOOK_LOG_WRITE )
+    if ( hook == zeek::plugin::HOOK_LOG_WRITE )
     {
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(hook_stop - log_hook_start);
         zeek_hook_cpu_time_seconds.Add(labels).Increment(duration.count() / 1000000.0);
@@ -250,7 +250,7 @@ void Plugin::MetaHookPost(HookType hook, const HookArgumentList& args, HookArgum
     }
 
     // This is a hook we don't handle, but someone else might
-    if ( hook != HOOK_CALL_FUNCTION )
+    if ( hook != zeek::plugin::HOOK_CALL_FUNCTION )
     {
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(hook_stop - other_hook_start);
         zeek_hook_cpu_time_seconds.Add(labels).Increment(duration.count() / 1000000.0);
@@ -261,7 +261,7 @@ void Plugin::MetaHookPost(HookType hook, const HookArgumentList& args, HookArgum
     double duration = std::chrono::duration_cast<std::chrono::microseconds>(hook_stop - func_hook_starts.top()).count();
     func_hook_starts.pop();
 
-    const Func* func = args.front().AsFunc();
+    const zeek::Func* func = args.front().AsFunc();
     // This is another plugin's hook handler
     if ( ! own_handler && func == current_func)
     {

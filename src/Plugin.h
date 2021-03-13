@@ -8,13 +8,13 @@
 #include <prometheus/gauge.h>
 #include <prometheus/registry.h>
 
-#include <plugin/Plugin.h>
+#include <zeek/plugin/Plugin.h>
 #include "zeek_exporter.bif.h"
 
 namespace plugin {
     namespace ESnet_Zeek_Exporter {
 
-        class Plugin : public ::plugin::Plugin
+        class Plugin : public zeek::plugin::Plugin
         {
         public:
             Plugin();
@@ -23,14 +23,14 @@ namespace plugin {
 
         protected:
             // Overridden from plugin::Plugin.
-            plugin::Configuration Configure() override;
-            std::pair<bool, Val*> HookCallFunction(const Func* func, Frame* frame, val_list* args) override;
-            bool HookLogWrite(const std::string& writer, const std::string& filter, const logging::WriterBackend::WriterInfo& info, int num_fields, const threading::Field* const* fields, threading::Value** vals) override;
-            void MetaHookPre(HookType hook, const HookArgumentList& args) override;
-            void MetaHookPost(HookType hook, const HookArgumentList& args, HookArgument result) override;
+	        zeek::plugin::Configuration Configure() override;
+	        std::pair<bool, zeek::ValPtr> HookFunctionCall(const zeek::Func* func, zeek::detail::Frame* frame, zeek::Args* args) override;
+	        bool HookLogWrite(const std::string& writer, const std::string& filter, const zeek::logging::WriterBackend::WriterInfo& info, int num_fields, const zeek::threading::Field* const* fields, zeek::threading::Value** vals) override;
+	        void MetaHookPre(zeek::plugin::HookType hook, const zeek::plugin::HookArgumentList& args) override;
+	        void MetaHookPost(zeek::plugin::HookType hook, const zeek::plugin::HookArgumentList& args, zeek::plugin::HookArgument result) override;
 
         private:
-            void AddlArgumentPopulation(const char * name, val_list* args, std::map<std::string, std::string>& labels);
+	        void AddlArgumentPopulation(const char * name, zeek::Args* args, std::map<std::string, std::string>& labels);
 
             const char* plugin_name = "ESnet::Zeek_Exporter";
             const char* node_name = getenv("CLUSTER_NODE") ? getenv("CLUSTER_NODE") : "standalone";
@@ -45,7 +45,7 @@ namespace plugin {
             // to tell if we're in our "outer" handler, or the "inner" handler.
 
             // If this is set, we're in the inner handler, but it could be our plugin or someone else's that's running.
-            const Func* current_func = nullptr;
+	        const zeek::Func* current_func = nullptr;
 
             // This determines whether it's our plugin running, or someone else's.
             bool own_handler = true;
