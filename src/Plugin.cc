@@ -32,7 +32,7 @@ void Plugin::InitPostScript()
     zeek_total_cpu_time_seconds.Add({{"type", "InitPostScript"}}, (double) clock()/CLOCKS_PER_SEC);
 
     // if we go straight to c_str() and assign bind_ip as a char* things get weird.
-    const char* bind_ip = BifConst::Exporter::bind_address->AsAddr().AsString();
+    const std::string bind_ip = BifConst::Exporter::bind_address->AsAddr().AsString();
     const uint32_t bind_port = BifConst::Exporter::bind_port->Port();
 
     try
