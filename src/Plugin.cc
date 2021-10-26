@@ -48,7 +48,7 @@ void Plugin::InitPostScript()
     }
     catch ( const std::exception& )
     {
-        zeek::reporter->Warning("%s failed to bind to %s:%d", plugin_name, bind_ip, bind_port);
+        zeek::reporter->Warning("%s failed to bind to %s:%d", plugin_name, bind_ip.c_str(), bind_port);
     }
 }
 
