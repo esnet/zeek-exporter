@@ -58,7 +58,7 @@ zeek::plugin::Configuration Plugin::Configure()
     config.name = plugin_name;
     config.description = "Prometheus exporter for Zeek";
     config.version.major = 0;
-    config.version.minor = 2;
+    config.version.minor = 3;
 
     // We want to track functions even if they get handled by another hook, so high priority here
     EnableHook(zeek::plugin::HOOK_CALL_FUNCTION, 1000001);
@@ -234,7 +234,15 @@ void Plugin::MetaHookPre(zeek::plugin::HookType hook, const zeek::plugin::HookAr
         {
             // Increase the depth, and append it to the lineage vector
             func_depth++;
-            lineage.push_back(func->Name());
+
+            // Make a copy of the func->Name() to avoid cases where the func pointer disappears later
+            int ns = strlen(func->Name());
+            char* name_copy;
+            name_copy = new char[ns + 1];
+            memcpy(name_copy, func->Name(), ns);
+            name_copy[ns] = '\0';
+
+            lineage.push_back(name_copy);
         }
     }
     else
