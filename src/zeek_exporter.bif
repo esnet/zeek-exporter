@@ -4,6 +4,6 @@ const Exporter::bind_address: addr;
 # The port that the Prometheus exporter should bind to
 const Exporter::bind_port: port;
 
-> # Option for whether we should try to track function lineage which
-> # is pretty memory intensive.
+# Option for whether we should try to track function lineage which
+# is pretty memory intensive.
 const Exporter::track_lineage: bool;
