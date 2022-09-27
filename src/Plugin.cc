@@ -58,7 +58,7 @@ zeek::plugin::Configuration Plugin::Configure()
     config.name = plugin_name;
     config.description = "Prometheus exporter for Zeek";
     config.version.major = 0;
-    config.version.minor = 3;
+    config.version.minor = 5;
 
     // We want to track functions even if they get handled by another hook, so high priority here
     EnableHook(zeek::plugin::HOOK_CALL_FUNCTION, 1000001);
@@ -191,7 +191,7 @@ std::pair<bool, zeek::ValPtr> Plugin::HookFunctionCall(const zeek::Func* func, z
 
     if ( lineage.size() > 1) {
         // We're lineage[lineage.size()-1], parent is size()-2
-        labels.insert({"function_caller", lineage[lineage.size() - 2]});
+	labels.insert({"function_caller", lineage[lineage.size() - 2]});
     }
     zeek_function_calls_total.Add(labels).Increment();
     zeek_cpu_time_per_function_seconds.Add(labels).Increment(last_function_duration.count() / 1000000.0);
@@ -234,15 +234,17 @@ void Plugin::MetaHookPre(zeek::plugin::HookType hook, const zeek::plugin::HookAr
         {
             // Increase the depth, and append it to the lineage vector
             func_depth++;
+            if(zeek::BifConst::Exporter::track_lineage){
 
-            // Make a copy of the func->Name() to avoid cases where the func pointer disappears later
-            int ns = strlen(func->Name());
-            char* name_copy;
-            name_copy = new char[ns + 1];
-            memcpy(name_copy, func->Name(), ns);
-            name_copy[ns] = '\0';
-
-            lineage.push_back(name_copy);
+                int ns = strlen(func->Name());
+                char* name_copy;
+                name_copy = new char[ns + 1];
+                memcpy(name_copy, func->Name(), ns);
+                name_copy[ns] = '\0';
+                lineage.push_back(name_copy);
+           }else{
+                lineage.push_back(func_caller_unknown);
+           }
         }
     }
     else

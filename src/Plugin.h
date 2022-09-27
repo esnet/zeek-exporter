@@ -39,6 +39,7 @@ namespace plugin {
             size_t func_depth = 0;
             // Track our parents
             std::vector<const char *> lineage;
+	    const char* func_caller_unknown = "Unknown";
 
             // In order to time how long function execution takes, we call the function ourselves (returning false to the plugin manager to indicate that we've taken over responsibility).
             // However, we want to provide other plugins a chance to run, so when the function gets called, hooks get executed again. To prevent recursing, we need to track some state
