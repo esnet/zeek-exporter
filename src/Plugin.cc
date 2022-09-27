@@ -234,7 +234,6 @@ void Plugin::MetaHookPre(zeek::plugin::HookType hook, const zeek::plugin::HookAr
         {
             // Increase the depth, and append it to the lineage vector
             func_depth++;
- 
             if(zeek::BifConst::Exporter::track_lineage){
 
                 int ns = strlen(func->Name());
@@ -246,7 +245,6 @@ void Plugin::MetaHookPre(zeek::plugin::HookType hook, const zeek::plugin::HookAr
            }else{
                 lineage.push_back(func_caller_unknown);
            }
-
         }
     }
     else
