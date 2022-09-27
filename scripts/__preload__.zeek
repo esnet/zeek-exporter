@@ -10,6 +10,9 @@ export {
 	## beginning with the next one above this.
 	const base_port = 9100/tcp &redef;
 
+        ## Tell the exporter to track function lineage (resource intensive)
+        const track_lineage = F &redef;
+
 	## The port that the exporter will bind to
 @if ( getenv("ZEEK_EXPORTER_PORT") != "" )
 	const bind_port = count_to_port(to_count(split_string1(getenv("ZEEK_EXPORTER_PORT"), /\//)[0]), tcp) &redef; # Use the env var if we have it
