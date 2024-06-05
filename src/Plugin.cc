@@ -1,9 +1,6 @@
 #include <chrono>
 #include <stack>
 
-#include <prometheus/exposer.h>
-#include <prometheus/registry.h>
-
 #include <zeek/ZeekString.h>
 #include <zeek/telemetry/Manager.h>
 
