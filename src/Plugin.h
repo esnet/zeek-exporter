@@ -9,6 +9,7 @@
 #include <prometheus/registry.h>
 
 #include <zeek/plugin/Plugin.h>
+#include <zeek/telemetry/Manager.h>
 #include "zeek_exporter.bif.h"
 
 namespace plugin {
@@ -79,8 +80,7 @@ namespace plugin {
             std::map<std::string, offset_pair> arg_events;
 
             // The data that we're exposing to Prometheus:
-            std::shared_ptr<prometheus::Exposer> exposer;
-            std::shared_ptr<prometheus::Registry> registry = std::make_shared<prometheus::Registry>();
+            std::shared_ptr<prometheus::Registry> registry = zeek::telemetry_mgr->GetRegistry();
 
             // Counter family for the number of log lines in zeek_log_writes_total
             prometheus::Family<prometheus::Counter>& zeek_log_writes_total = prometheus::BuildCounter()

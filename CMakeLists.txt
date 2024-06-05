@@ -5,16 +5,11 @@ project(ZeekPluginZeek_Exporter)
 include(ZeekPlugin)
 include(CheckIncludeFileCXX)
 
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-add_subdirectory(3rdparty/prometheus-cpp)
-
 set(ENABLE_TESTING OFF CACHE BOOL "Build tests")
-include_directories(BEFORE ${prometheus-cpp_INCLUDE_DIR})
 
 zeek_plugin_begin(ESnet Zeek_Exporter)
 zeek_plugin_cc(src/Plugin.cc)
 zeek_plugin_bif(src/zeek_exporter.bif)
-zeek_plugin_link_library(prometheus-cpp::pull)
 zeek_plugin_dist_files(README CHANGES COPYING VERSION)
 zeek_plugin_end()
 
