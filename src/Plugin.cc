@@ -5,6 +5,7 @@
 #include <prometheus/registry.h>
 
 #include <zeek/ZeekString.h>
+#include <zeek/telemetry/Manager.h>
 
 #include <zeek/Event.h>
 #include <zeek/Func.h>
@@ -31,25 +32,7 @@ void Plugin::InitPostScript()
     // Third-stage initialization
     zeek_total_cpu_time_seconds.Add({{"type", "InitPostScript"}}, (double) clock()/CLOCKS_PER_SEC);
 
-    // if we go straight to c_str() and assign bind_ip as a char* things get weird.
-    const std::string bind_ip = zeek::BifConst::Exporter::bind_address->AsAddr().AsString();
-    const uint32_t bind_port = zeek::BifConst::Exporter::bind_port->Port();
-
-    try
-    {
-        if(zeek::BifConst::Exporter::bind_address->AsAddr().GetFamily() == IPv4){
-            exposer = std::make_shared<prometheus::Exposer>(zeek::util::fmt("%s:%d", bind_ip.c_str(), bind_port));
-        }else if(zeek::BifConst::Exporter::bind_address->AsAddr().GetFamily() == IPv6){
-            // 3rdparty civetweb expects ipv6 addresses in brackets as well 
-            exposer = std::make_shared<prometheus::Exposer>(zeek::util::fmt("[%s]:%d", bind_ip.c_str(), bind_port));
-        }
-        exposer->RegisterCollectable(registry);
-        zeek_start_time_seconds.Add({{"type", "plugin_start_time"}}).Increment(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count());
-    }
-    catch ( const std::exception& )
-    {
-        zeek::reporter->Warning("%s failed to bind to %s:%d", plugin_name, bind_ip.c_str(), bind_port);
-    }
+    zeek_start_time_seconds.Add({{"type", "plugin_start_time"}}).Increment(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count());
 }
 
 zeek::plugin::Configuration Plugin::Configure()
