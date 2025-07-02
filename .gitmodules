@@ -1,3 +1,0 @@
-[submodule "zeek-docs"]
-	path = doc/zeek-docs
-	url = https://github.com/zeek/zeek-docs.git
