@@ -152,7 +152,7 @@ std::pair<bool, zeek::ValPtr> Plugin::HookFunctionCall(const zeek::Func* func, z
 
     // We keep a running total, without function name & caller labels
     zeek_function_calls_total.Add(labels).Increment();
-    zeek_cpu_time_per_script_seconds.Add({{"script", func->GetLocationInfo()->filename}}).Increment(last_function_duration.count());
+    zeek_cpu_time_per_script_seconds.Add({{"script", func->GetLocationInfo()->FileName()}}).Increment(last_function_duration.count());
     zeek_cpu_time_per_function_type_seconds.Add(labels).Increment((last_function_duration.count() - children_duration) / 1000000.0);
 
     // Now we add our metadata and store it again, with the label(s)
