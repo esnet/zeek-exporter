@@ -156,7 +156,7 @@ std::pair<bool, zeek::ValPtr> Plugin::HookFunctionCall(const zeek::Func* func, z
     zeek_cpu_time_per_function_type_seconds.Add(labels).Increment((last_function_duration.count() - children_duration) / 1000000.0);
 
     // Now we add our metadata and store it again, with the label(s)
-    const std::string& name = func->GetName();
+    const char * name = func->GetName();
     labels.insert({"name", func->GetName()});
 
     // Grab some values for select events. Only bother if we have arguments, and if it's an event
@@ -217,7 +217,7 @@ void Plugin::MetaHookPre(zeek::plugin::HookType hook, const zeek::plugin::HookAr
             if(zeek::BifConst::Exporter::track_lineage){
 
                 int ns = strlen(func->GetName());
-                std::string& name_copy;
+                char* name_copy;
                 name_copy = new char[ns + 1];
                 memcpy(name_copy, func->GetName(), ns);
                 name_copy[ns] = '\0';
