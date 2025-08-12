@@ -25,7 +25,7 @@ namespace plugin {
 	        void MetaHookPost(zeek::plugin::HookType hook, const zeek::plugin::HookArgumentList& args, zeek::plugin::HookArgument result) override;
 
         private:
-	        void AddlArgumentPopulation(const char * name, zeek::Args* args, std::map<std::string, std::string>& labels);
+	        void AddlArgumentPopulation(const std::string& name, zeek::Args* args, std::map<std::string, std::string>& labels);
 
             const char* plugin_name = "ESnet::Zeek_Exporter";
             const char* node_name = getenv("CLUSTER_NODE") ? getenv("CLUSTER_NODE") : "standalone";
