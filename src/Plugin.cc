@@ -53,13 +53,13 @@ zeek::plugin::Configuration Plugin::Configure()
     return config;
 }
 
-void Plugin::AddlArgumentPopulation(const char * name, zeek::Args* args, std::map<std::string, std::string>& labels) {
+void Plugin::AddlArgumentPopulation(const std::string& name, zeek::Args* args, std::map<std::string, std::string>& labels) {
     int arg_offset = -1;
     int addl_offset = -1;
 
     for (auto & arg_event : arg_events)
     {
-        if ( strcmp(name, arg_event.first.c_str()) == 0 )
+        if ( strcmp(name.c_str(), arg_event.first.c_str()) == 0 )
         {
             arg_offset = std::get<0>(arg_event.second);
             addl_offset = std::get<1>(arg_event.second);
@@ -156,8 +156,8 @@ std::pair<bool, zeek::ValPtr> Plugin::HookFunctionCall(const zeek::Func* func, z
     zeek_cpu_time_per_function_type_seconds.Add(labels).Increment((last_function_duration.count() - children_duration) / 1000000.0);
 
     // Now we add our metadata and store it again, with the label(s)
-    const char * name = func->Name();
-    labels.insert({"name", func->Name()});
+    const std::string& name = func->GetName();
+    labels.insert({"name", func->GetName()});
 
     // Grab some values for select events. Only bother if we have arguments, and if it's an event
     if ( args->size() && func->Flavor() == zeek::FUNC_FLAVOR_EVENT )
@@ -178,7 +178,7 @@ std::pair<bool, zeek::ValPtr> Plugin::HookFunctionCall(const zeek::Func* func, z
     zeek_absolute_cpu_time_per_function_seconds.Add(labels).Increment((last_function_duration.count() - children_duration) / 1000000.0);
 
     // We update the list of functions we want some arguments for.
-    if ( strcmp(name, "Exporter::update_arg_functions") == 0 && args->size() == 3 )
+    if ( strcmp(name.c_str(), "Exporter::update_arg_functions") == 0 && args->size() == 3 )
     {
         int arg_val = (*args)[1]->AsInt();
         int addl_val = (*args)[2]->AsInt();
@@ -216,10 +216,10 @@ void Plugin::MetaHookPre(zeek::plugin::HookType hook, const zeek::plugin::HookAr
             func_depth++;
             if(zeek::BifConst::Exporter::track_lineage){
 
-                int ns = strlen(func->Name());
+                int ns = func->GetName().length();
                 char* name_copy;
                 name_copy = new char[ns + 1];
-                memcpy(name_copy, func->Name(), ns);
+                memcpy(name_copy, func->GetName().c_str(), ns);
                 name_copy[ns] = '\0';
                 lineage.push_back(name_copy);
            }else{
